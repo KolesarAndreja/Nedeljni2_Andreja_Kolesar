@@ -1,7 +1,7 @@
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'MedicalInstitution')
 CREATE DATABASE MedicalInstitution;
 GO
-USE dbMedicalInstitution
+USE MedicalInstitution
 --dropping tables
 IF OBJECT_ID('vwClinicPatient') IS NOT NULL
 DROP VIEW vwClinicPatient;
@@ -12,14 +12,14 @@ DROP VIEW vwClinicManager;
 IF OBJECT_ID('vwClinicDoctor') IS NOT NULL
 DROP VIEW vwClinicDoctor;
 
+IF OBJECT_ID('tblClinicAdministrator') IS NOT NULL 
+DROP TABLE tblClinicAdministrator;
+
 IF OBJECT_ID('tblReport') IS NOT NULL 
 DROP TABLE tblReport;
 
 IF OBJECT_ID('tblClinicMaintenance') IS NOT NULL 
 DROP TABLE tblClinicMaintenance;
-
-IF OBJECT_ID('tblClinicAdministrator') IS NOT NULL 
-DROP TABLE tblClinicAdministrator;
 
 IF OBJECT_ID('tblInstitute') IS NOT NULL 
 DROP TABLE tblInstitute;
@@ -77,6 +77,7 @@ userId INT FOREIGN KEY REFERENCES tblUser(userId) ON DELETE SET NULL,
 );
 
 CREATE TABLE tblClinicAdministrator(
+adminId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 instituteId INT FOREIGN KEY REFERENCES tblInstitute(instituteId) ON DELETE SET NULL,
 userId INT FOREIGN KEY REFERENCES tblUser(userId) ON DELETE SET NULL,
 );
@@ -88,7 +89,7 @@ CREATE TABLE tblClinicDoctor(
 	department VARCHAR(20) not null,
 	admissionOfPatients bit not null,
 	managerId INT FOREIGN KEY REFERENCES tblClinicManager(managerId) ON DELETE SET NULL,
-	userId INT FOREIGN KEY REFERENCES tblUsers(userId) ON DELETE SET NULL,
+	userId INT FOREIGN KEY REFERENCES tblUser(userId) ON DELETE SET NULL
 );  
 
 CREATE TABLE tblClinicPatient(
@@ -96,7 +97,7 @@ CREATE TABLE tblClinicPatient(
 	cardNumber VARCHAR(20),
 	expiryDate DATE NOT NULL,
 	hasVirus BIT,
-	userId INT FOREIGN KEY REFERENCES tblUsers(userId) ON DELETE SET NULL,
+	userId INT FOREIGN KEY REFERENCES tblUser(userId) ON DELETE SET NULL,
 	doctorId INT FOREIGN KEY REFERENCES tblClinicDoctor(doctorId) ON DELETE SET NULL
 );    
 
