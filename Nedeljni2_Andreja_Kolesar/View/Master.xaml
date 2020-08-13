@@ -3,10 +3,156 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Converter="clr-namespace:Nedeljni2_Andreja_Kolesar.Converter"
         xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
         mc:Ignorable="d"
-        Title="Master" Height="450" Width="800">
+        Title="Master"
+        Height="500"
+        Width="500">
+    <Window.Resources>
+        <Converter:StringConverter x:Key="stringConverterKey" />
+    </Window.Resources>
     <Grid>
-        
+        <Button Content="Log out"
+                Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Height="25"
+                Margin="320,18,0,0"
+                VerticalAlignment="Top"
+                Width="125" />
+        <Grid Name="adminGrid"
+              Visibility="{Binding createAdmin, UpdateSourceTrigger=PropertyChanged}">
+            <Label Content="Fullname:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,80,0,0"
+                   VerticalAlignment="Top"
+                   Width="90" />
+            <TextBox x:Name="txtFullname"
+                     Text="{Binding newUser.fullname, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left"
+                     Height="23"
+                     Margin="120,82,0,0"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Top"
+                     Width="195" />
+            <Label Content="Identity Card:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,120,0,0"
+                   VerticalAlignment="Top"
+                   Width="90" />
+            <TextBox x:Name="txtLastname"
+                     Text="{Binding newUser.ICnumber, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left"
+                     Height="23"
+                     Margin="120,120,0,0"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Top"
+                     Width="195" />
+            <Label Content="Date Of Birth:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,160,0,0"
+                   VerticalAlignment="Top"
+                   Width="90" />
+            <TextBox x:Name="txtDateOfBirth"
+                     Text="{Binding newUser.dateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left"
+                     Height="23"
+                     Margin="120,160,0,0"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Top"
+                     Width="195" />
+            <Label Content="Username:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,200,0,0"
+                   VerticalAlignment="Top"
+                   Width="90" />
+            <TextBox  Text="{Binding newUser.username, UpdateSourceTrigger=PropertyChanged}"
+                      Name="txtJm"
+                      HorizontalAlignment="Left"
+                      Height="23"
+                      Margin="120,200,0,0"
+                      TextWrapping="Wrap"
+                      VerticalAlignment="Top"
+                      Width="195" />
+            <Label Content="Password:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,243,0,0"
+                   VerticalAlignment="Top"
+                   Width="90" />
+            <Label Content="Citizenship:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,325,0,0"
+                   VerticalAlignment="Top"
+                   Width="110"
+                   RenderTransformOrigin="1.944,-0.8"></Label>
+            <Label Content="Gender:"
+                   HorizontalAlignment="Left"
+                   Height="25"
+                   Margin="30,283,0,0"
+                   VerticalAlignment="Top"
+                   Width="90"
+                   RenderTransformOrigin="0.5,0.5"></Label>
+            <TextBox x:Name="txtSalary"
+                     Text="{Binding newUser.citizenship, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left"
+                     Height="23"
+                     Margin="120,327,0,0"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Top"
+                     Width="195" />
+            <RadioButton Content="M"
+                         x:Name="M"
+                         GroupName="Gender"
+                         IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = M}"
+                         HorizontalAlignment="Left"
+                         Margin="125,289,0,0"
+                         VerticalAlignment="Top" />
+            <RadioButton Content="F"
+                         x:Name="F"
+                         GroupName="Gender"
+                         IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = F}"
+                         HorizontalAlignment="Left"
+                         Margin="190,289,0,0"
+                         VerticalAlignment="Top" />
+            <RadioButton Content="X"
+                         x:Name="X"
+                         GroupName="Gender"
+                         IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = X}"
+                         HorizontalAlignment="Left"
+                         Margin="250,289,0,0"
+                         VerticalAlignment="Top" />
+            <Button Content="Save"
+                    Command="{Binding save, UpdateSourceTrigger=PropertyChanged}"
+                    CommandParameter="{Binding ElementName=passwordBox}"
+                    HorizontalAlignment="Left"
+                    Height="25"
+                    Margin="115,375,0,0"
+                    VerticalAlignment="Top"
+                    Width="140" />
+            <PasswordBox HorizontalAlignment="Left"
+                         x:Name="passwordBox"
+                         Margin="120,243,0,0"
+                         VerticalAlignment="Top"
+                         Width="195"
+                         Height="25" />
+            <Label Content="CREATE CLINIC ADMINISTRATOR:"
+                   HorizontalAlignment="Left"
+                   Margin="20,55,0,0"
+                   VerticalAlignment="Top"
+                   Width="265"
+                   FontStyle="Italic" />
+        </Grid>
+        <Label Content="Clinic Administrator has already been created"
+               Visibility="{Binding alreadyAdmin, UpdateSourceTrigger=PropertyChanged}"
+               HorizontalAlignment="Left"
+               Margin="30,17,0,0"
+               VerticalAlignment="Top"
+               Width="265" />
     </Grid>
 </Window>
