@@ -101,6 +101,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         }
         #endregion
 
+        #region existence
         public static bool AdminExist()
         {
             try
@@ -117,6 +118,25 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 return false;
             }
         }
+
+        public static bool InstituteExist()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                {
+                    bool r = (from x in context.tblInstitutes select x).Any();
+                    return r;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return false;
+            }
+        }
+        #endregion
+
 
         #region validation
         public static bool UsedNumber(string number)
@@ -346,6 +366,58 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                         mToEdit.permissionToExpand = m.permissionToExpand;
                         context.SaveChanges();
                         return m;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message.ToString());
+                return null;
+            }
+        }
+        #endregion
+
+        #region ADD CLINIC
+        public static tblInstitute AddInstitute(tblInstitute clinic)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                {
+                    if (clinic.instituteId == 0)
+                    {
+                        //add 
+                        tblInstitute newInstitute = new tblInstitute();
+                        newInstitute.instituteOwner = clinic.instituteOwner;
+                        newInstitute.name = clinic.name;
+                        newInstitute.numberOfAccessPointsForInvalids = clinic.numberOfAccessPointsForInvalids;
+                        newInstitute.numberOfAmbulanceAccessPoints = clinic.numberOfAmbulanceAccessPoints;
+                        newInstitute.numberOfFloors = clinic.numberOfFloors;
+                        newInstitute.numberOfRooms = clinic.numberOfRooms;
+                        newInstitute.terrace = clinic.terrace;
+                        newInstitute.yard = clinic.yard;
+                        newInstitute.address = clinic.address;
+                        newInstitute.constructionDate = clinic.constructionDate;
+                        context.tblInstitutes.Add(newInstitute);
+                        context.SaveChanges();
+                        clinic.instituteId = newInstitute.instituteId;
+                        return clinic;
+                    }
+                    else
+                    {
+                        tblInstitute instituteToEdit = (from x in context.tblInstitutes where x.instituteId == clinic.instituteId select x).FirstOrDefault();
+                        instituteToEdit.address = clinic.address;
+                        instituteToEdit.constructionDate = clinic.constructionDate;
+                        instituteToEdit.instituteOwner = clinic.instituteOwner;
+                        instituteToEdit.name = clinic.name;
+                        instituteToEdit.numberOfAccessPointsForInvalids = clinic.numberOfAccessPointsForInvalids;
+                        instituteToEdit.numberOfAmbulanceAccessPoints = clinic.numberOfAmbulanceAccessPoints;
+                        instituteToEdit.numberOfFloors = clinic.numberOfFloors;
+                        instituteToEdit.numberOfRooms = clinic.numberOfRooms;
+                        instituteToEdit.terrace = clinic.terrace;
+                        instituteToEdit.yard = clinic.yard;
+                        context.SaveChanges();
+                        return clinic;
                     }
                 }
             }

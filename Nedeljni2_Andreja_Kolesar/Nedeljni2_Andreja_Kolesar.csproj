@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Converter\BoolRadioConverter.cs" />
     <Compile Include="Converter\StringConverter.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Service\Model1.Context.cs">
@@ -119,6 +120,7 @@
     <Compile Include="Validation\ValidJmbg.cs" />
     <Compile Include="Validation\ValidPassword.cs" />
     <Compile Include="Validation\ValidUsername.cs" />
+    <Compile Include="ViewModel\CreateClinicViewModel.cs" />
     <Compile Include="ViewModel\DoctorViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceViewModel.cs" />
@@ -129,6 +131,9 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\Administrator.xaml.cs">
       <DependentUpon>Administrator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateClinic.xaml.cs">
+      <DependentUpon>CreateClinic.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Doctor.xaml.cs">
       <DependentUpon>Doctor.xaml</DependentUpon>
@@ -164,6 +169,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Administrator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateClinic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -95,8 +95,17 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     {
                         tblClinicAdministrator admin = Service.Service.isAdministrator(user);
                         Administrator a = new Administrator();
-                        login.Close();
-                        a.Show();
+                        if (Service.Service.InstituteExist())
+                        {
+                            login.Close();
+                            a.Show();
+                        }
+                        else
+                        {
+                            CreateClinic create = new CreateClinic(admin);
+                            login.Close();
+                            create.Show();
+                        }
                     }
                 }
             }
