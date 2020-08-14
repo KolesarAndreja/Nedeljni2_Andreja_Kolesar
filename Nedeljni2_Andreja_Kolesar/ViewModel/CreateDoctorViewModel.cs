@@ -3,19 +3,76 @@ using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Nedeljni2_Andreja_Kolesar.ViewModel
 {
-    class RegisterPatientViewModel:ViewModelBase
+    class CreateDoctorViewModel:ViewModelBase
     {
         #region Prop
-        RegisterPatient register;
+        CreateDoctor register;
+
+        private List<vwClinicManager> _allManagers;
+        public List<vwClinicManager> allManagers
+        {
+            get
+            {
+                return _allManagers;
+            }
+            set
+            {
+                _allManagers = value;
+                OnPropertyChanged("allManagers");
+            }
+        }
+
+        private vwClinicManager _selectedManager;
+        public vwClinicManager selectedManager
+        {
+            get
+            {
+                return _selectedManager;
+            }
+            set
+            {
+                _selectedManager = value;
+                OnPropertyChanged("selectedManaager");
+            }
+        }
+
+        private List<string> _shiftList =new List<string>()
+        {
+            "morning", "afternoon", "night", "24hours"
+        };
+        public List<string> shiftList
+        {
+            get
+            {
+                return _shiftList;
+            }
+            set
+            {
+                _shiftList = value;
+                OnPropertyChanged("shiftList");
+            }
+        }
+
+        private string _selectedShift;
+        public string selectedShift
+        {
+            get
+            {
+                return _selectedShift;
+            }
+            set
+            {
+                _selectedShift = value;
+                OnPropertyChanged("selectedShift");
+            }
+        }
+
         private tblUser _newUser;
         public tblUser newUser
         {
@@ -30,17 +87,17 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private tblClinicPatient _newPatient;
-        public tblClinicPatient newPatient
+        private tblClinicDoctor _newDoctor;
+        public tblClinicDoctor newDoctor
         {
             get
             {
-                return _newPatient;
+                return _newDoctor;
             }
             set
             {
-                _newPatient = value;
-                OnPropertyChanged("newManager");
+                _newDoctor = value;
+                OnPropertyChanged("newDoctor");
             }
         }
 
@@ -63,18 +120,20 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         #endregion
 
         #region constructor
-        public RegisterPatientViewModel(RegisterPatient open)
+        public CreateDoctorViewModel(CreateDoctor open)
         {
             register = open;
             newUser = new tblUser();
-            newPatient = new tblClinicPatient();
+            newDoctor = new tblClinicDoctor();
+            allManagers = Service.Service.GetManagersList();
         }
 
-        public RegisterPatientViewModel(RegisterPatient open, tblClinicPatient p)
+        public CreateDoctorViewModel(CreateDoctor open, tblClinicDoctor d)
         {
             register = open;
             newUser = new tblUser();
-            newPatient = p;
+            newDoctor = d;
+            allManagers = Service.Service.GetManagersList();
 
         }
         #endregion
@@ -134,11 +193,13 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 currentPassword = (obj as PasswordBox).Password;
                 newUser.password = currentPassword;
                 tblUser u = Service.Service.AddUser(newUser);
-                newPatient.userId = u.userId;
-                tblClinicPatient p = Service.Service.AddPatient(newPatient);
-                if (u != null && p != null)
+                newDoctor.userId = u.userId;
+                newDoctor.shift = selectedShift;
+                newDoctor.managerId = selectedManager.managerId;
+                tblClinicDoctor doc = Service.Service.AddDoctor(newDoctor);
+                if (u != null && doc != null)
                 {
-                    MessageBox.Show("Patient has been registered.");
+                    MessageBox.Show("Doctor has been registered.");
                     isUpdated = true;
                     register.Close();
                 }

@@ -13,10 +13,10 @@ namespace Nedeljni2_Andreja_Kolesar.Service
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MedicalInstitutionEntities3 : DbContext
+    public partial class MedicalInstitutionEntities4 : DbContext
     {
-        public MedicalInstitutionEntities3()
-            : base("name=MedicalInstitutionEntities3")
+        public MedicalInstitutionEntities4()
+            : base("name=MedicalInstitutionEntities4")
         {
         }
     

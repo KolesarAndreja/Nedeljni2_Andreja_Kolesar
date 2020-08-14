@@ -14,7 +14,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblUser result = (from x in context.tblUsers where x.username == username && x.password == password select x).FirstOrDefault();
                     return result;
@@ -32,7 +32,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblClinicManager result = (from x in context.tblClinicManagers where x.userId == e.userId select x).FirstOrDefault();
                     return result;
@@ -50,7 +50,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblClinicDoctor result = (from x in context.tblClinicDoctors where x.userId == e.userId select x).FirstOrDefault();
                     return result;
@@ -68,7 +68,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblClinicPatient result = (from x in context.tblClinicPatients where x.userId == e.userId select x).FirstOrDefault();
                     return result;
@@ -87,7 +87,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblClinicAdministrator result = (from x in context.tblClinicAdministrators where x.userId == e.userId select x).FirstOrDefault();
                     return result;
@@ -106,7 +106,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     bool r = (from x in context.tblClinicAdministrators select x).Any();
                     return r;
@@ -123,7 +123,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     bool r = (from x in context.tblInstitutes select x).Any();
                     return r;
@@ -143,7 +143,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     bool b = (from x in context.tblUsers where x.ICnumber == number select x).Any();
                     return b;
@@ -160,7 +160,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     bool b = (from x in context.tblUsers where x.username == name select x).Any();
                     return b;
@@ -179,7 +179,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (user.userId == 0)
                     {
@@ -226,7 +226,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (manager.managerId == 0)
                     {
@@ -264,11 +264,11 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         #endregion
 
         #region ADD DOCTOR
-        public static tblClinicDoctor AddEmployee(tblClinicDoctor doctor)
+        public static tblClinicDoctor AddDoctor(tblClinicDoctor doctor)
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (doctor.doctorId == 0)
                     {
@@ -280,6 +280,9 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                         newDoctor.managerId = doctor.managerId;
                         newDoctor.shift = doctor.shift;
                         newDoctor.userId = doctor.userId;
+                        context.tblClinicDoctors.Add(newDoctor);
+                        context.SaveChanges();
+                        doctor.doctorId = newDoctor.doctorId;
                         return doctor;
                     }
                     else
@@ -304,12 +307,52 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         }
         #endregion
 
+        #region ADD PATIENT
+        public static tblClinicPatient AddPatient(tblClinicPatient patient)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    if (patient.patientId == 0)
+                    {
+                        //add 
+                        tblClinicPatient newPatient = new tblClinicPatient();
+                        newPatient.expiryDate = patient.expiryDate;
+                        newPatient.cardNumber = patient.cardNumber;
+                        newPatient.userId = patient.userId;
+                        context.tblClinicPatients.Add(newPatient);
+                        context.SaveChanges();
+                        patient.patientId = newPatient.patientId;
+                        return patient;
+                    }
+                    else
+                    {
+                        tblClinicPatient patientToEdit = (from x in context.tblClinicPatients where x.patientId == patient.patientId select x).FirstOrDefault();
+                        patientToEdit.expiryDate = patient.expiryDate;
+                        patientToEdit.hasVirus = patient.hasVirus;
+                        patientToEdit.userId = patient.userId;
+                        patientToEdit.cardNumber = patient.cardNumber;
+                        patientToEdit.doctorId = patient.doctorId;
+                        context.SaveChanges();
+                        return patient;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message.ToString());
+                return null;
+            }
+        }
+        #endregion
+
         #region ADD ADMINISTRATOR
         public static tblClinicAdministrator AddAdministrator(tblClinicAdministrator admin)
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (admin.adminId == 0)
                     {
@@ -346,7 +389,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (m.maintenanceId == 0)
                     {
@@ -384,7 +427,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     if (clinic.instituteId == 0)
                     {
@@ -433,11 +476,65 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         #endregion
 
         #region get lists, queue
+        public static List<vwClinicDoctor> GetDoctorsList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    List<vwClinicDoctor> list = new List<vwClinicDoctor>();
+                    list = (from x in context.vwClinicDoctors select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        public static List<vwClinicManager> GetManagersList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    List<vwClinicManager> list = new List<vwClinicManager>();
+                    list = (from x in context.vwClinicManagers select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+        public static List<vwClinicPatient> GetPatientsList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    List<vwClinicPatient> list = new List<vwClinicPatient>();
+                    list = (from x in context.vwClinicPatients select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+
         public static List<tblClinicMaintenance> GetMaintenanceList()
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     List<tblClinicMaintenance> list = new List<tblClinicMaintenance>();
                     list = (from x in context.tblClinicMaintenances select x).ToList();
@@ -456,7 +553,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     List<tblClinicMaintenance> list = GetMaintenanceList();
                     if (list.Count != 0)
@@ -486,7 +583,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         {
             try
             {
-                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     tblClinicMaintenance toDelete = (from u in context.tblClinicMaintenances where u.maintenanceId == maintenance.maintenanceId select u).First();
                     context.tblClinicMaintenances.Remove(toDelete);

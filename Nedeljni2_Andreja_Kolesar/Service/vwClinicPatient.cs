@@ -25,9 +25,6 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         public string cardNumber { get; set; }
         public Nullable<int> doctorId { get; set; }
         public int patientId { get; set; }
-        public bool admissionOfPatients { get; set; }
-        public string shift { get; set; }
-        public Nullable<int> managerId { get; set; }
-        public string department { get; set; }
+        public Nullable<bool> hasVirus { get; set; }
     }
 }

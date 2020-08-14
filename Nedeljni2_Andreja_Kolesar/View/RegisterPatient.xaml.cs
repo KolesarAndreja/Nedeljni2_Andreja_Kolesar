@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Nedeljni2_Andreja_Kolesar.Service;
+using Nedeljni2_Andreja_Kolesar.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Nedeljni2_Andreja_Kolesar.View
 {
@@ -22,6 +12,13 @@ namespace Nedeljni2_Andreja_Kolesar.View
         public RegisterPatient()
         {
             InitializeComponent();
+            this.DataContext = new RegisterPatientViewModel(this);
+        }
+
+        public RegisterPatient(tblClinicPatient patient)
+        {
+            InitializeComponent();
+            this.DataContext = new RegisterPatientViewModel(this, patient);
         }
     }
 }

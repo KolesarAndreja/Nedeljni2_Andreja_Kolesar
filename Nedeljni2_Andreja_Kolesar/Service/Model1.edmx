@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MedicalInstitutionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MedicalInstitutionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblClinicAdministrator">
           <Key>
             <PropertyRef Name="adminId" />
@@ -179,9 +179,6 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             <PropertyRef Name="gender" />
             <PropertyRef Name="citizenship" />
             <PropertyRef Name="patientId" />
-            <PropertyRef Name="admissionOfPatients" />
-            <PropertyRef Name="shift" />
-            <PropertyRef Name="department" />
           </Key>
           <Property Name="userId" Type="int" Nullable="false" />
           <Property Name="fullname" Type="varchar" MaxLength="35" Nullable="false" />
@@ -194,12 +191,9 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="cardNumber" Type="varchar" MaxLength="20" />
           <Property Name="doctorId" Type="int" />
           <Property Name="patientId" Type="int" Nullable="false" />
-          <Property Name="admissionOfPatients" Type="bit" Nullable="false" />
-          <Property Name="shift" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="managerId" Type="int" />
-          <Property Name="department" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="hasVirus" Type="bit" />
         </EntityType>
-        <Association Name="FK__tblClinic__docto__14B10FFA">
+        <Association Name="FK__tblClinic__docto__7F80E8EA">
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="0..1" />
           <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
           <ReferentialConstraint>
@@ -211,7 +205,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__insti__0C1BC9F9">
+        <Association Name="FK__tblClinic__insti__76EBA2E9">
           <End Role="tblInstitute" Type="Self.tblInstitute" Multiplicity="0..1" />
           <End Role="tblClinicAdministrator" Type="Self.tblClinicAdministrator" Multiplicity="*" />
           <ReferentialConstraint>
@@ -223,7 +217,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__manag__0FEC5ADD">
+        <Association Name="FK__tblClinic__manag__7ABC33CD">
           <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="0..1" />
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +229,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__093F5D4E">
+        <Association Name="FK__tblClinic__userI__740F363E">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +241,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__0D0FEE32">
+        <Association Name="FK__tblClinic__userI__77DFC722">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicAdministrator" Type="Self.tblClinicAdministrator" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +253,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__10E07F16">
+        <Association Name="FK__tblClinic__userI__7BB05806">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +265,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__13BCEBC1">
+        <Association Name="FK__tblClinic__userI__7E8CC4B1">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +277,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblReport__maint__178D7CA5">
+        <Association Name="FK__tblReport__maint__025D5595">
           <End Role="tblClinicMaintenance" Type="Self.tblClinicMaintenance" Multiplicity="0..1" />
           <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
           <ReferentialConstraint>
@@ -356,46 +350,44 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
     [vwClinicPatient].[cardNumber] AS [cardNumber], 
     [vwClinicPatient].[doctorId] AS [doctorId], 
     [vwClinicPatient].[patientId] AS [patientId], 
-    [vwClinicPatient].[admissionOfPatients] AS [admissionOfPatients], 
-    [vwClinicPatient].[shift] AS [shift], 
-    [vwClinicPatient].[managerId] AS [managerId], 
-    [vwClinicPatient].[department] AS [department]
+    [vwClinicPatient].[hasVirus] AS [hasVirus]
     FROM [dbo].[vwClinicPatient] AS [vwClinicPatient]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__tblClinic__docto__14B10FFA" Association="Self.FK__tblClinic__docto__14B10FFA">
+          <AssociationSet Name="FK__tblClinic__docto__7F80E8EA" Association="Self.FK__tblClinic__docto__7F80E8EA">
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
             <End Role="tblClinicPatient" EntitySet="tblClinicPatient" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__insti__0C1BC9F9" Association="Self.FK__tblClinic__insti__0C1BC9F9">
+          <AssociationSet Name="FK__tblClinic__insti__76EBA2E9" Association="Self.FK__tblClinic__insti__76EBA2E9">
             <End Role="tblInstitute" EntitySet="tblInstitute" />
             <End Role="tblClinicAdministrator" EntitySet="tblClinicAdministrator" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__manag__0FEC5ADD" Association="Self.FK__tblClinic__manag__0FEC5ADD">
+          <AssociationSet Name="FK__tblClinic__manag__7ABC33CD" Association="Self.FK__tblClinic__manag__7ABC33CD">
             <End Role="tblClinicManager" EntitySet="tblClinicManager" />
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__093F5D4E" Association="Self.FK__tblClinic__userI__093F5D4E">
+          <AssociationSet Name="FK__tblClinic__userI__740F363E" Association="Self.FK__tblClinic__userI__740F363E">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblClinicManager" EntitySet="tblClinicManager" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__0D0FEE32" Association="Self.FK__tblClinic__userI__0D0FEE32">
+          <AssociationSet Name="FK__tblClinic__userI__77DFC722" Association="Self.FK__tblClinic__userI__77DFC722">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblClinicAdministrator" EntitySet="tblClinicAdministrator" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__10E07F16" Association="Self.FK__tblClinic__userI__10E07F16">
+          <AssociationSet Name="FK__tblClinic__userI__7BB05806" Association="Self.FK__tblClinic__userI__7BB05806">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__13BCEBC1" Association="Self.FK__tblClinic__userI__13BCEBC1">
+          <AssociationSet Name="FK__tblClinic__userI__7E8CC4B1" Association="Self.FK__tblClinic__userI__7E8CC4B1">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblClinicPatient" EntitySet="tblClinicPatient" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblReport__maint__178D7CA5" Association="Self.FK__tblReport__maint__178D7CA5">
+          <AssociationSet Name="FK__tblReport__maint__025D5595" Association="Self.FK__tblReport__maint__025D5595">
             <End Role="tblClinicMaintenance" EntitySet="tblClinicMaintenance" />
             <End Role="tblReport" EntitySet="tblReport" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MedicalInstitutionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -406,8 +398,8 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="adminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="instituteId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
-          <NavigationProperty Name="tblInstitute" Relationship="Self.FK__tblClinic__insti__4959E263" FromRole="tblClinicAdministrator" ToRole="tblInstitute" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__4A4E069C" FromRole="tblClinicAdministrator" ToRole="tblUser" />
+          <NavigationProperty Name="tblInstitute" Relationship="Self.FK__tblClinic__insti__76EBA2E9" FromRole="tblClinicAdministrator" ToRole="tblInstitute" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__77DFC722" FromRole="tblClinicAdministrator" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblClinicDoctor">
           <Key>
@@ -420,19 +412,19 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="admissionOfPatients" Type="Boolean" Nullable="false" />
           <Property Name="managerId" Type="Int32" />
           <Property Name="userId" Type="Int32" />
-          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__docto__51EF2864" FromRole="tblClinicDoctor" ToRole="tblClinicPatient" />
-          <NavigationProperty Name="tblClinicManager" Relationship="Self.FK__tblClinic__manag__4D2A7347" FromRole="tblClinicDoctor" ToRole="tblClinicManager" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__4E1E9780" FromRole="tblClinicDoctor" ToRole="tblUser" />
+          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__docto__7F80E8EA" FromRole="tblClinicDoctor" ToRole="tblClinicPatient" />
+          <NavigationProperty Name="tblClinicManager" Relationship="Self.FK__tblClinic__manag__7ABC33CD" FromRole="tblClinicDoctor" ToRole="tblClinicManager" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__7BB05806" FromRole="tblClinicDoctor" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblClinicMaintenance">
           <Key>
             <PropertyRef Name="maintenanceId" />
           </Key>
           <Property Name="maintenanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="permissionToExpand" Type="Boolean" Nullable="false" />
           <Property Name="accessibilityOfInvalids" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tblReports" Relationship="Self.FK__tblReport__maint__54CB950F" FromRole="tblClinicMaintenance" ToRole="tblReport" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblReports" Relationship="Self.FK__tblReport__maint__025D5595" FromRole="tblClinicMaintenance" ToRole="tblReport" />
         </EntityType>
         <EntityType Name="tblClinicManager">
           <Key>
@@ -444,8 +436,8 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="minNumberOfRooms" Type="Int32" Nullable="false" />
           <Property Name="numberOfOmissions" Type="Int32" />
           <Property Name="userId" Type="Int32" />
-          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__manag__4D2A7347" FromRole="tblClinicManager" ToRole="tblClinicDoctor" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__467D75B8" FromRole="tblClinicManager" ToRole="tblUser" />
+          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__manag__7ABC33CD" FromRole="tblClinicManager" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__740F363E" FromRole="tblClinicManager" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblClinicPatient">
           <Key>
@@ -457,8 +449,8 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="hasVirus" Type="Boolean" />
           <Property Name="userId" Type="Int32" />
           <Property Name="doctorId" Type="Int32" />
-          <NavigationProperty Name="tblClinicDoctor" Relationship="Self.FK__tblClinic__docto__51EF2864" FromRole="tblClinicPatient" ToRole="tblClinicDoctor" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__50FB042B" FromRole="tblClinicPatient" ToRole="tblUser" />
+          <NavigationProperty Name="tblClinicDoctor" Relationship="Self.FK__tblClinic__docto__7F80E8EA" FromRole="tblClinicPatient" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblClinic__userI__7E8CC4B1" FromRole="tblClinicPatient" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblInstitute">
           <Key>
@@ -475,7 +467,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="yard" Type="Boolean" Nullable="false" />
           <Property Name="numberOfAmbulanceAccessPoints" Type="Int32" />
           <Property Name="numberOfAccessPointsForInvalids" Type="Int32" />
-          <NavigationProperty Name="tblClinicAdministrators" Relationship="Self.FK__tblClinic__insti__4959E263" FromRole="tblInstitute" ToRole="tblClinicAdministrator" />
+          <NavigationProperty Name="tblClinicAdministrators" Relationship="Self.FK__tblClinic__insti__76EBA2E9" FromRole="tblInstitute" ToRole="tblClinicAdministrator" />
         </EntityType>
         <EntityType Name="tblReport">
           <Key>
@@ -486,7 +478,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="totalTime" Type="Int32" Nullable="false" />
           <Property Name="maintenanceId" Type="Int32" />
-          <NavigationProperty Name="tblClinicMaintenance" Relationship="Self.FK__tblReport__maint__54CB950F" FromRole="tblReport" ToRole="tblClinicMaintenance" />
+          <NavigationProperty Name="tblClinicMaintenance" Relationship="Self.FK__tblReport__maint__025D5595" FromRole="tblReport" ToRole="tblClinicMaintenance" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -500,10 +492,10 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="citizenship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblClinicAdministrators" Relationship="Self.FK__tblClinic__userI__4A4E069C" FromRole="tblUser" ToRole="tblClinicAdministrator" />
-          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__userI__4E1E9780" FromRole="tblUser" ToRole="tblClinicDoctor" />
-          <NavigationProperty Name="tblClinicManagers" Relationship="Self.FK__tblClinic__userI__467D75B8" FromRole="tblUser" ToRole="tblClinicManager" />
-          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__userI__50FB042B" FromRole="tblUser" ToRole="tblClinicPatient" />
+          <NavigationProperty Name="tblClinicAdministrators" Relationship="Self.FK__tblClinic__userI__77DFC722" FromRole="tblUser" ToRole="tblClinicAdministrator" />
+          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__userI__7BB05806" FromRole="tblUser" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblClinicManagers" Relationship="Self.FK__tblClinic__userI__740F363E" FromRole="tblUser" ToRole="tblClinicManager" />
+          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__userI__7E8CC4B1" FromRole="tblUser" ToRole="tblClinicPatient" />
         </EntityType>
         <EntityType Name="vwClinicDoctor">
           <Key>
@@ -583,9 +575,6 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             <PropertyRef Name="gender" />
             <PropertyRef Name="citizenship" />
             <PropertyRef Name="patientId" />
-            <PropertyRef Name="admissionOfPatients" />
-            <PropertyRef Name="shift" />
-            <PropertyRef Name="department" />
           </Key>
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="fullname" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
@@ -598,12 +587,9 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <Property Name="cardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="doctorId" Type="Int32" />
           <Property Name="patientId" Type="Int32" Nullable="false" />
-          <Property Name="admissionOfPatients" Type="Boolean" Nullable="false" />
-          <Property Name="shift" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="managerId" Type="Int32" />
-          <Property Name="department" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hasVirus" Type="Boolean" />
         </EntityType>
-        <Association Name="FK__tblClinic__insti__4959E263">
+        <Association Name="FK__tblClinic__insti__76EBA2E9">
           <End Role="tblInstitute" Type="Self.tblInstitute" Multiplicity="0..1" />
           <End Role="tblClinicAdministrator" Type="Self.tblClinicAdministrator" Multiplicity="*" />
           <ReferentialConstraint>
@@ -615,7 +601,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__4A4E069C">
+        <Association Name="FK__tblClinic__userI__77DFC722">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicAdministrator" Type="Self.tblClinicAdministrator" Multiplicity="*" />
           <ReferentialConstraint>
@@ -627,7 +613,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__docto__51EF2864">
+        <Association Name="FK__tblClinic__docto__7F80E8EA">
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="0..1" />
           <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
           <ReferentialConstraint>
@@ -639,7 +625,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__manag__4D2A7347">
+        <Association Name="FK__tblClinic__manag__7ABC33CD">
           <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="0..1" />
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -651,7 +637,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__4E1E9780">
+        <Association Name="FK__tblClinic__userI__7BB05806">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -663,7 +649,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblReport__maint__54CB950F">
+        <Association Name="FK__tblReport__maint__025D5595">
           <End Role="tblClinicMaintenance" Type="Self.tblClinicMaintenance" Multiplicity="0..1" />
           <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
           <ReferentialConstraint>
@@ -675,7 +661,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__467D75B8">
+        <Association Name="FK__tblClinic__userI__740F363E">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="*" />
           <ReferentialConstraint>
@@ -687,7 +673,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblClinic__userI__50FB042B">
+        <Association Name="FK__tblClinic__userI__7E8CC4B1">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
           <ReferentialConstraint>
@@ -699,7 +685,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MedicalInstitutionEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MedicalInstitutionEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblClinicAdministrators" EntityType="Self.tblClinicAdministrator" />
           <EntitySet Name="tblClinicDoctors" EntityType="Self.tblClinicDoctor" />
           <EntitySet Name="tblClinicMaintenances" EntityType="Self.tblClinicMaintenance" />
@@ -711,35 +697,35 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <EntitySet Name="vwClinicDoctors" EntityType="Self.vwClinicDoctor" />
           <EntitySet Name="vwClinicManagers" EntityType="Self.vwClinicManager" />
           <EntitySet Name="vwClinicPatients" EntityType="Self.vwClinicPatient" />
-          <AssociationSet Name="FK__tblClinic__insti__4959E263" Association="Self.FK__tblClinic__insti__4959E263">
+          <AssociationSet Name="FK__tblClinic__insti__76EBA2E9" Association="Self.FK__tblClinic__insti__76EBA2E9">
             <End Role="tblInstitute" EntitySet="tblInstitutes" />
             <End Role="tblClinicAdministrator" EntitySet="tblClinicAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__4A4E069C" Association="Self.FK__tblClinic__userI__4A4E069C">
+          <AssociationSet Name="FK__tblClinic__userI__77DFC722" Association="Self.FK__tblClinic__userI__77DFC722">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblClinicAdministrator" EntitySet="tblClinicAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__docto__51EF2864" Association="Self.FK__tblClinic__docto__51EF2864">
+          <AssociationSet Name="FK__tblClinic__docto__7F80E8EA" Association="Self.FK__tblClinic__docto__7F80E8EA">
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
             <End Role="tblClinicPatient" EntitySet="tblClinicPatients" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__manag__4D2A7347" Association="Self.FK__tblClinic__manag__4D2A7347">
+          <AssociationSet Name="FK__tblClinic__manag__7ABC33CD" Association="Self.FK__tblClinic__manag__7ABC33CD">
             <End Role="tblClinicManager" EntitySet="tblClinicManagers" />
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__4E1E9780" Association="Self.FK__tblClinic__userI__4E1E9780">
+          <AssociationSet Name="FK__tblClinic__userI__7BB05806" Association="Self.FK__tblClinic__userI__7BB05806">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblReport__maint__54CB950F" Association="Self.FK__tblReport__maint__54CB950F">
+          <AssociationSet Name="FK__tblReport__maint__025D5595" Association="Self.FK__tblReport__maint__025D5595">
             <End Role="tblClinicMaintenance" EntitySet="tblClinicMaintenances" />
             <End Role="tblReport" EntitySet="tblReports" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__467D75B8" Association="Self.FK__tblClinic__userI__467D75B8">
+          <AssociationSet Name="FK__tblClinic__userI__740F363E" Association="Self.FK__tblClinic__userI__740F363E">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblClinicManager" EntitySet="tblClinicManagers" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblClinic__userI__50FB042B" Association="Self.FK__tblClinic__userI__50FB042B">
+          <AssociationSet Name="FK__tblClinic__userI__7E8CC4B1" Association="Self.FK__tblClinic__userI__7E8CC4B1">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblClinicPatient" EntitySet="tblClinicPatients" />
           </AssociationSet>
@@ -749,7 +735,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MedicalInstitutionModelStoreContainer" CdmEntityContainer="MedicalInstitutionEntities3">
+        <EntityContainerMapping StorageEntityContainer="MedicalInstitutionModelStoreContainer" CdmEntityContainer="MedicalInstitutionEntities4">
           <EntitySetMapping Name="tblClinicAdministrators">
             <EntityTypeMapping TypeName="MedicalInstitutionModel.tblClinicAdministrator">
               <MappingFragment StoreEntitySet="tblClinicAdministrator">
@@ -775,8 +761,8 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
           <EntitySetMapping Name="tblClinicMaintenances">
             <EntityTypeMapping TypeName="MedicalInstitutionModel.tblClinicMaintenance">
               <MappingFragment StoreEntitySet="tblClinicMaintenance">
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="maintenanceId" ColumnName="maintenanceId" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="permissionToExpand" ColumnName="permissionToExpand" />
                 <ScalarProperty Name="accessibilityOfInvalids" ColumnName="accessibilityOfInvalids" />
               </MappingFragment>
@@ -905,10 +891,7 @@ warning 6002: The table/view 'MedicalInstitution.dbo.vwClinicPatient' does not h
                 <ScalarProperty Name="cardNumber" ColumnName="cardNumber" />
                 <ScalarProperty Name="doctorId" ColumnName="doctorId" />
                 <ScalarProperty Name="patientId" ColumnName="patientId" />
-                <ScalarProperty Name="admissionOfPatients" ColumnName="admissionOfPatients" />
-                <ScalarProperty Name="shift" ColumnName="shift" />
-                <ScalarProperty Name="managerId" ColumnName="managerId" />
-                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="hasVirus" ColumnName="hasVirus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

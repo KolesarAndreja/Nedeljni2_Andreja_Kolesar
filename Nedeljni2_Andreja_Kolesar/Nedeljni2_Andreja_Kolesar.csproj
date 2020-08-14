@@ -122,7 +122,9 @@
     <Compile Include="Validation\ValidUsername.cs" />
     <Compile Include="ViewModel\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\CreateClinicViewModel.cs" />
+    <Compile Include="ViewModel\CreateDoctorViewModel.cs" />
     <Compile Include="ViewModel\CreateMaintenanceViewModel.cs" />
+    <Compile Include="ViewModel\CreateManagerViewModel.cs" />
     <Compile Include="ViewModel\DoctorViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceViewModel.cs" />
@@ -137,8 +139,14 @@
     <Compile Include="View\CreateClinic.xaml.cs">
       <DependentUpon>CreateClinic.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CreateDoctor.xaml.cs">
+      <DependentUpon>CreateDoctor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CreateMaintenance.xaml.cs">
       <DependentUpon>CreateMaintenance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateManager.xaml.cs">
+      <DependentUpon>CreateManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Doctor.xaml.cs">
       <DependentUpon>Doctor.xaml</DependentUpon>
@@ -161,7 +169,6 @@
     <Compile Include="View\RegisterPatient.xaml.cs">
       <DependentUpon>RegisterPatient.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewModelCreateMaintenance.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,7 +189,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CreateDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreateMaintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

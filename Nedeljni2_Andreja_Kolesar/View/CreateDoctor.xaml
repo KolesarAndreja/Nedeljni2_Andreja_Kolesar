@@ -1,12 +1,12 @@
-﻿<Window x:Class="Nedeljni2_Andreja_Kolesar.View.RegisterPatient"
+﻿<Window x:Class="Nedeljni2_Andreja_Kolesar.View.CreateDoctor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Converter="clr-namespace:Nedeljni2_Andreja_Kolesar.Converter"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
         mc:Ignorable="d"
-        Title="RegisterPatient" Height="570" Width="500">
+        Title="CreateDoctor" Height="650" Width="500">
     <Window.Resources>
         <Converter:StringConverter x:Key="stringConverterKey" />
     </Window.Resources>
@@ -128,7 +128,7 @@
                 CommandParameter="{Binding ElementName=passwordBox}"
                 HorizontalAlignment="Left"
                 Height="25"
-                Margin="115,455,0,0"
+                Margin="120,560,0,0"
                 VerticalAlignment="Top"
                 Width="140" />
         <PasswordBox HorizontalAlignment="Left"
@@ -143,7 +143,7 @@
                VerticalAlignment="Top"
                Width="265"
                FontStyle="Italic" />
-        <Label Content="Card number:"
+        <Label Content="Account:"
                HorizontalAlignment="Left"
                Height="25"
                Margin="30,358,0,0"
@@ -151,27 +151,60 @@
                Width="110"
                RenderTransformOrigin="1.944,-0.8" />
         <TextBox x:Name="txtCardNumber"
-                 Text="{Binding newPatient.cardNumber, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding newDoctor.account, UpdateSourceTrigger=PropertyChanged}"
                  HorizontalAlignment="Left"
                  Height="23"
                  Margin="120,360,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Width="195" />
-        <Label Content="Expiry date:"
+        <Label Content="Department:"
                HorizontalAlignment="Left"
                Height="25"
-               Margin="30,400,0,0"
+               Margin="30,398,0,0"
                VerticalAlignment="Top"
                Width="110"
                RenderTransformOrigin="1.944,-0.8" />
         <TextBox x:Name="txtExpiryDate"
-                 Text="{Binding newPatient.expiryDate, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding newDoctor.department, UpdateSourceTrigger=PropertyChanged}"
                  HorizontalAlignment="Left"
                  Height="23"
                  Margin="120,400,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
-                 Width="195"/>
+                 Width="195" />
+        <Label Content="Shift:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,440,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <ComboBox HorizontalAlignment="Left"
+                  x:Name="cmbMarital" 
+                  IsEditable="True"
+                  ItemsSource="{Binding shiftList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding selectedShift, UpdateSourceTrigger=PropertyChanged}"
+                  Height="22"
+                  Margin="120,445,0,0"
+                  VerticalAlignment="Top"
+                  Width="195" />
+        <Label Content="Manager:"
+               HorizontalAlignment="Left"
+               Height="30"
+               Margin="30,482,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <ComboBox HorizontalAlignment="Left"
+                  x:Name="cmbMarital_Copy"
+                  DisplayMemberPath="fullname"
+                  IsEditable="True"
+                  ItemsSource="{Binding allManagers, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding selectedManager, UpdateSourceTrigger=PropertyChanged}"
+                  Height="22"
+                  Margin="120,482,0,0"
+                  VerticalAlignment="Top"
+                  Width="195" />
     </Grid>
 </Window>

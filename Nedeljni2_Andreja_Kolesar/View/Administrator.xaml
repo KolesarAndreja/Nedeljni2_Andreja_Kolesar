@@ -5,22 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
         mc:Ignorable="d"
-        Title="Administrator" Height="450" Width="800">
+        Title="Administrator"
+        Height="450"
+        Width="800">
     <Grid>
-        <Button Content="Log Out"
-                Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
-                HorizontalAlignment="Left"
-                Height="20"
-                Margin="610,40,0,0"
-                VerticalAlignment="Top"
-                Width="140" />
-        <Button Content="Create Clinic Maintenance"
-                Command="{Binding addMaintenance, UpdateSourceTrigger=PropertyChanged}"
-                HorizontalAlignment="Left"
-                Margin="60,40,0,0"
-                VerticalAlignment="Top"
-                Width="150" />
-        <DataGrid Name="DataGridAllAdmins"
+        <Grid Name="gridButtons">
+            <Button Content="Log Out"
+                    Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Height="20"
+                    Margin="675,20,0,0"
+                    VerticalAlignment="Top"
+                    Width="87" />
+            <Button Content="Create Maintenance"
+                    Command="{Binding addMaintenance, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,20,0,0"
+                    VerticalAlignment="Top"
+                    Width="135" />
+            <Button Content="Create Manager"
+                    Command="{Binding addManager, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="180,20,0,0"
+                    VerticalAlignment="Top"
+                    Width="135" />
+            <Button Content="Create Doctor"
+                    Command="{Binding addDoctor, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="320,20,0,0"
+                    VerticalAlignment="Top"
+                    Width="135" />
+            <Button Content="Create Patient"
+                    Command="{Binding addPatient, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="460,20,0,0"
+                    VerticalAlignment="Top"
+                    Width="135" />
+            <Button Content="Read Maintenances"
+                    Command="{Binding readMaintenance, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,95,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+            <Button Content="Read Managers"
+                    Command="{Binding readManager, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,130,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+            <Button Content="Read Doctors"
+                    Command="{Binding readDoctor, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,165,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+            <Button Content="Read Patients"
+                    Command="{Binding readPatient, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,199,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+            <Button Content="Get Report about Virus"
+                    Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,235,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+            <Button Content="Get report about employees"
+                    Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="40,270,0,0"
+                    VerticalAlignment="Top"
+                    Width="155" />
+        </Grid>
+        <DataGrid Name="DataGridAllMaintenances"
+                  Visibility="{Binding viewMaintenance, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding maintenanceList, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding maintenance, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True"
@@ -30,7 +89,7 @@
                   BorderBrush="Black"
                   Foreground="Black"
                   FontWeight="Bold"
-                  Margin="45,121,37,49">
+                  Margin="225,97,22,99">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"
                                     Binding="{Binding name}" />
@@ -63,23 +122,147 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Current Clinic Maintenances:"
-               HorizontalAlignment="Left"
-               Margin="60,80,0,0"
-               VerticalAlignment="Top"
-               Width="200"
-               FontSize="14" />
-        <Button Content="Read about Virus"
-                Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
-                HorizontalAlignment="Left"
-                Margin="240,40,0,0"
-                VerticalAlignment="Top"
-                Width="150" />
-        <Button Content="Read about employees"
-                Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
-                HorizontalAlignment="Left"
-                Margin="425,40,0,0"
-                VerticalAlignment="Top"
-                Width="150" />
+        <DataGrid Name="DataGridAllManagers"
+                  Visibility="{Binding viewManager, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding managerList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding manager, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold"
+                  Margin="225,97,22,99">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fullname"
+                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Max number of doctors"
+                                    Binding="{Binding maxNumberOfDoctors}" />
+                <DataGridTextColumn Header="Min number of rooms"
+                                    Binding="{Binding minNumberOfRooms}" />
+                <DataGridTextColumn Header="Floor"
+                                    Binding="{Binding floorNumber}" />
+                <DataGridTextColumn Header="Omissions"
+                                    Binding="{Binding numberOfOmissions}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDelete"
+                                    Content="Delete"
+                                    Command="{Binding Path=DataContext.deleteManager, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnEditUser"
+                                    Content="Edit"
+                                    Command="{Binding DataContext.editManager, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="DataGridAllDoctors"
+                  Visibility="{Binding viewDoctor, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding doctorList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding doctor, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold"
+                  Margin="225,97,22,99">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fullname"
+                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Departmen"
+                                    Binding="{Binding department}" />
+                <DataGridTextColumn Header="Shift"
+                                    Binding="{Binding shift}" />
+                <DataGridTextColumn Header="Reception"
+                                    Binding="{Binding admissionOfPatients}" />
+                <DataGridTextColumn Header="Floor"
+                                    Binding="{Binding floorNumber}" />
+                <DataGridTextColumn Header="Manager Id"
+                                    Binding="{Binding managerId}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDelete"
+                                    Content="Delete"
+                                    Command="{Binding Path=DataContext.deleteDoctor, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnEditUser"
+                                    Content="Edit"
+                                    Command="{Binding DataContext.editDoctor, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="DataGridAllPatients"
+                  Visibility="{Binding viewPatient, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding patientList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding patient, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold"
+                  Margin="225,97,22,99">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fullname"
+                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Card number"
+                                    Binding="{Binding cardNumber}" />
+                <DataGridTextColumn Header="Doctor Id"
+                                    Binding="{Binding doctorId}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDelete"
+                                    Content="Delete"
+                                    Command="{Binding Path=DataContext.deletePatient, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnEditUser"
+                                    Content="Edit"
+                                    Command="{Binding DataContext.editPatient, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

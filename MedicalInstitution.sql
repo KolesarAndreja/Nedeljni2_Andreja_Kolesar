@@ -113,12 +113,10 @@ CREATE TABLE tblReport(
 GO
 CREATE VIEW vwClinicPatient
 as
-select u.*, p.cardNumber, p.doctorId, p.patientId, d.admissionOfPatients,d.shift, d.managerId, d.department
+select u.*, p.cardNumber, p.doctorId, p.patientId, p.hasVirus
 from tblClinicPatient p
 inner join tblUser u
 on u.userId = p.userId
-inner join tblClinicDoctor d
-on p.doctorId = d.doctorId
 
 GO
 CREATE VIEW vwClinicDoctor

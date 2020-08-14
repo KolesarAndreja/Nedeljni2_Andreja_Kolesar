@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Nedeljni2_Andreja_Kolesar.ViewModel
 {
-    class AdministratorViewModel:ViewModelBase
+    class AdministratorViewModel : ViewModelBase
     {
         Administrator administrator;
         #region constructor
@@ -16,11 +16,17 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             administrator = open;
             maintenanceList = Service.Service.GetMaintenanceList();
+            doctorList = Service.Service.GetDoctorsList();
+            patientList = Service.Service.GetPatientsList();
+            managerList = Service.Service.GetManagersList();
             maintenance = new tblClinicMaintenance();
+            doctor = new vwClinicDoctor();
+            manager = new vwClinicManager();
+            patient = new vwClinicPatient();
         }
         #endregion
 
-        #region property
+        #region list
         private List<tblClinicMaintenance> _maintenanceList;
         public List<tblClinicMaintenance> maintenanceList
         {
@@ -35,6 +41,50 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
+        private List<vwClinicDoctor> _doctorList;
+        public List<vwClinicDoctor> doctorList
+        {
+            get
+            {
+                return _doctorList;
+            }
+            set
+            {
+                _doctorList = value;
+                OnPropertyChanged("doctorList");
+            }
+        }
+
+        private List<vwClinicPatient> _patientList;
+        public List<vwClinicPatient> patientList
+        {
+            get
+            {
+                return _patientList;
+            }
+            set
+            {
+                _patientList = value;
+                OnPropertyChanged("patientList");
+            }
+        }
+
+        private List<vwClinicManager> _managerList;
+        public List<vwClinicManager> managerList
+        {
+            get
+            {
+                return _managerList;
+            }
+            set
+            {
+                _managerList = value;
+                OnPropertyChanged("managerList");
+            }
+        }
+        #endregion
+
+        #region property 
         private tblClinicMaintenance _maintenance;
         public tblClinicMaintenance maintenance
         {
@@ -48,9 +98,51 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 OnPropertyChanged("maintenance");
             }
         }
+
+        private vwClinicDoctor _doctor;
+        public vwClinicDoctor doctor
+        {
+            get
+            {
+                return _doctor;
+            }
+            set
+            {
+                _doctor = value;
+                OnPropertyChanged("doctor");
+            }
+        }
+
+        private vwClinicManager _manager;
+        public vwClinicManager manager
+        {
+            get
+            {
+                return _manager;
+            }
+            set
+            {
+                _manager = value;
+                OnPropertyChanged("manager");
+            }
+        }
+
+        private vwClinicPatient _patient;
+        public vwClinicPatient patient
+        {
+            get
+            {
+                return _patient;
+            }
+            set
+            {
+                _patient = value;
+                OnPropertyChanged("patient");
+            }
+        }
         #endregion
 
-        #region addMaintenance
+        #region add commands
         private ICommand _addMaintenance;
         public ICommand addMaintenance
         {
@@ -81,6 +173,116 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
         private bool CanRegistrationExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _addManager;
+        public ICommand addManager
+        {
+            get
+            {
+                if (_addManager == null)
+                {
+                    _addManager = new RelayCommand(param => AddManagerExecute(), param => CanAddManagerExecute());
+                }
+                return _addManager;
+            }
+        }
+
+        private void AddManagerExecute()
+        {
+            try
+            {
+                CreateManager man = new CreateManager();
+                man.ShowDialog();
+                if((man.DataContext as CreateManagerViewModel).isUpdated == true)
+                {
+                    managerList = Service.Service.GetManagersList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanAddManagerExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _addDoctor;
+        public ICommand addDoctor
+        {
+            get
+            {
+                if (_addDoctor == null)
+                {
+                    _addDoctor = new RelayCommand(param => AddDoctorExecute(), param => CanAddDoctorExecute());
+                }
+                return _addDoctor;
+            }
+        }
+
+        private void AddDoctorExecute()
+        {
+            try
+            {
+                CreateDoctor create = new CreateDoctor();
+                create.ShowDialog();
+                if ((create.DataContext as CreateDoctorViewModel).isUpdated == true)
+                {
+                    doctorList = Service.Service.GetDoctorsList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanAddDoctorExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _addPatient;
+        public ICommand addPatient
+        {
+            get
+            {
+                if (_addPatient == null)
+                {
+                    _addPatient = new RelayCommand(param => AddPatientExecute(), param => CanAddPatientExecute());
+                }
+                return _addPatient;
+            }
+        }
+
+        private void AddPatientExecute()
+        {
+            try
+            {
+                RegisterPatient register = new RegisterPatient();
+                register.ShowDialog();
+                if ((register.DataContext as RegisterPatientViewModel).isUpdated == true)
+                {
+                    patientList = Service.Service.GetPatientsList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanAddPatientExecute()
         {
             return true;
         }
@@ -191,5 +393,204 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         }
         #endregion
 
+        #region Visibility
+        private Visibility _viewManager = Visibility.Collapsed;
+        public Visibility viewManager
+        {
+            get
+            {
+                return _viewManager;
+            }
+            set
+            {
+                _viewManager = value;
+                OnPropertyChanged("viewManager");
+            }
+        }
+
+        private Visibility _viewPatient = Visibility.Collapsed;
+        public Visibility viewPatient
+        {
+            get
+            {
+                return _viewPatient;
+            }
+            set
+            {
+                _viewPatient = value;
+                OnPropertyChanged("viewPatient");
+            }
+        }
+
+        private Visibility _viewDoctor = Visibility.Collapsed;
+        public Visibility viewDoctor
+        {
+            get
+            {
+                return _viewDoctor;
+            }
+            set
+            {
+                _viewDoctor = value;
+                OnPropertyChanged("viewDoctor");
+            }
+        }
+
+        private Visibility _viewMaintenance = Visibility.Collapsed;
+        public Visibility viewMaintenance
+        {
+            get
+            {
+                return _viewMaintenance;
+            }
+            set
+            {
+                _viewMaintenance = value;
+                OnPropertyChanged("viewMaintenance");
+            }
+        }
+        #endregion
+
+        #region read button commands
+
+        private ICommand _readMaintenance;
+        public ICommand readMaintenance
+        {
+            get
+            {
+                if (_readMaintenance == null)
+                {
+                    _readMaintenance = new RelayCommand(param => ReadMaintenanceExecute(), param => CanReadMaintenanceExecute());
+                }
+                return _readMaintenance;
+            }
+        }
+        private void ReadMaintenanceExecute()
+        {
+
+            try
+            {
+                viewMaintenance = Visibility.Visible;
+                viewDoctor = Visibility.Hidden;
+                viewManager = Visibility.Hidden;
+                viewPatient = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanReadMaintenanceExecute()
+        {
+            return true;
+        }
+
+
+        private ICommand _readManager;
+        public ICommand readManager
+        {
+            get
+            {
+                if (_readManager == null)
+                {
+                    _readManager = new RelayCommand(param => ReadManagerExecute(), param => CanReadManagerExecute());
+                }
+                return _readManager;
+            }
+        }
+
+        private void ReadManagerExecute()
+        {
+
+            try
+            {
+                viewMaintenance = Visibility.Hidden;
+                viewDoctor = Visibility.Hidden;
+                viewManager = Visibility.Visible;
+                viewPatient = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanReadManagerExecute()
+        {
+            return true;
+        }
+
+
+        private ICommand _readDoctor;
+        public ICommand readDoctor
+        {
+            get
+            {
+                if (_readDoctor == null)
+                {
+                    _readDoctor = new RelayCommand(param => ReadDoctorExecute(), param => CanReadDoctorExecute());
+                }
+                return _readDoctor;
+            }
+        }
+
+        private void ReadDoctorExecute()
+        {
+
+            try
+            {
+                viewMaintenance = Visibility.Hidden;
+                viewDoctor = Visibility.Visible;
+                viewManager = Visibility.Hidden;
+                viewPatient = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanReadDoctorExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _readPatient;
+        public ICommand readPatient
+        {
+            get
+            {
+                if (_readPatient == null)
+                {
+                    _readPatient = new RelayCommand(param => ReadPatientExecute(), param => CanReadPatientExecute());
+                }
+                return _readPatient;
+            }
+        }
+
+        private void ReadPatientExecute()
+        {
+
+            try
+            {
+                viewMaintenance = Visibility.Hidden;
+                viewDoctor = Visibility.Hidden;
+                viewManager = Visibility.Hidden;
+                viewPatient = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanReadPatientExecute()
+        {
+            return true;
+        }
+        #endregion
     }
 }

@@ -2,20 +2,16 @@
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Nedeljni2_Andreja_Kolesar.ViewModel
 {
-    class RegisterPatientViewModel:ViewModelBase
+    class CreateManagerViewModel:ViewModelBase
     {
         #region Prop
-        RegisterPatient register;
+        CreateManager register;
         private tblUser _newUser;
         public tblUser newUser
         {
@@ -30,16 +26,16 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private tblClinicPatient _newPatient;
-        public tblClinicPatient newPatient
+        private tblClinicManager _newManager;
+        public tblClinicManager newManager
         {
             get
             {
-                return _newPatient;
+                return _newManager;
             }
             set
             {
-                _newPatient = value;
+                _newManager = value;
                 OnPropertyChanged("newManager");
             }
         }
@@ -63,18 +59,18 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         #endregion
 
         #region constructor
-        public RegisterPatientViewModel(RegisterPatient open)
+        public CreateManagerViewModel(CreateManager open)
         {
             register = open;
             newUser = new tblUser();
-            newPatient = new tblClinicPatient();
+            newManager = new tblClinicManager();
         }
 
-        public RegisterPatientViewModel(RegisterPatient open, tblClinicPatient p)
+        public CreateManagerViewModel(CreateManager open, tblClinicManager man)
         {
             register = open;
             newUser = new tblUser();
-            newPatient = p;
+            newManager = man;
 
         }
         #endregion
@@ -87,7 +83,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             {
                 if (_logOut == null)
                 {
-                    _logOut = new RelayCommand(param => LogOutExecute(), param => CanLogOutExecute());
+                    _logOut = new Command.RelayCommand(param => LogOutExecute(), param => CanLogOutExecute());
                 }
                 return _logOut;
             }
@@ -134,11 +130,11 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 currentPassword = (obj as PasswordBox).Password;
                 newUser.password = currentPassword;
                 tblUser u = Service.Service.AddUser(newUser);
-                newPatient.userId = u.userId;
-                tblClinicPatient p = Service.Service.AddPatient(newPatient);
-                if (u != null && p != null)
+                newManager.userId = u.userId;
+                tblClinicManager m = Service.Service.AddManager(newManager);
+                if (u != null && m != null)
                 {
-                    MessageBox.Show("Patient has been registered.");
+                    MessageBox.Show("Manager has been registered.");
                     isUpdated = true;
                     register.Close();
                 }
