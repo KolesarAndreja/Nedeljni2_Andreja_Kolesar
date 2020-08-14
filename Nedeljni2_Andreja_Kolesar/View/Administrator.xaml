@@ -7,6 +7,79 @@
         mc:Ignorable="d"
         Title="Administrator" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Log Out"
+                Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Height="20"
+                Margin="610,40,0,0"
+                VerticalAlignment="Top"
+                Width="140" />
+        <Button Content="Create Clinic Maintenance"
+                Command="{Binding addMaintenance, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="60,40,0,0"
+                VerticalAlignment="Top"
+                Width="150" />
+        <DataGrid Name="DataGridAllAdmins"
+                  ItemsSource="{Binding maintenanceList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding maintenance, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold"
+                  Margin="45,121,37,49">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding name}" />
+                <DataGridTextColumn Header="Permission to expand"
+                                    Binding="{Binding permissionToExpand}" />
+                <DataGridTextColumn Header="Accessibility for invalids"
+                                    Binding="{Binding accessibilityOfInvalids}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDelete"
+                                    Content="Delete"
+                                    Command="{Binding Path=DataContext.delete, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnEditUser"
+                                    Content="Edit"
+                                    Command="{Binding DataContext.edit, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Current Clinic Maintenances:"
+               HorizontalAlignment="Left"
+               Margin="60,80,0,0"
+               VerticalAlignment="Top"
+               Width="200"
+               FontSize="14" />
+        <Button Content="Read about Virus"
+                Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="240,40,0,0"
+                VerticalAlignment="Top"
+                Width="150" />
+        <Button Content="Read about employees"
+                Command="{Binding registration, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="425,40,0,0"
+                VerticalAlignment="Top"
+                Width="150" />
     </Grid>
 </Window>

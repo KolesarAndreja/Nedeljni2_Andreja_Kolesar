@@ -315,7 +315,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                     {
                         //add 
                         tblClinicAdministrator newAdmin = new tblClinicAdministrator();
-                        //newAdmin.instituteId = admin.instituteId;
+                        //newAdmin.instituteId = maintenance.instituteId;
                         newAdmin.userId = admin.userId;
                         context.tblClinicAdministrators.Add(newAdmin);
                         context.SaveChanges();
@@ -342,7 +342,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         #endregion
 
         #region ADD MAINTENANCE
-        public static tblClinicMaintenance AddEmployee(tblClinicMaintenance m)
+        public static tblClinicMaintenance AddMaintenance(tblClinicMaintenance m)
         {
             try
             {
@@ -352,6 +352,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                     {
                         //add 
                         tblClinicMaintenance newM = new tblClinicMaintenance();
+                        newM.name = m.name;
                         newM.permissionToExpand = m.permissionToExpand;
                         newM.accessibilityOfInvalids = m.accessibilityOfInvalids;
                         context.tblClinicMaintenances.Add(newM);
@@ -362,6 +363,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                     else
                     {
                         tblClinicMaintenance mToEdit = (from x in context.tblClinicMaintenances where x.maintenanceId== m.maintenanceId select x).FirstOrDefault();
+                        mToEdit.name = m.name;
                         mToEdit.accessibilityOfInvalids = m.accessibilityOfInvalids;
                         mToEdit.permissionToExpand = m.permissionToExpand;
                         context.SaveChanges();
@@ -416,6 +418,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                         instituteToEdit.numberOfRooms = clinic.numberOfRooms;
                         instituteToEdit.terrace = clinic.terrace;
                         instituteToEdit.yard = clinic.yard;
+
                         context.SaveChanges();
                         return clinic;
                     }
@@ -425,6 +428,74 @@ namespace Nedeljni2_Andreja_Kolesar.Service
             {
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message.ToString());
                 return null;
+            }
+        }
+        #endregion
+
+        #region get lists, queue
+        public static List<tblClinicMaintenance> GetMaintenanceList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                {
+                    List<tblClinicMaintenance> list = new List<tblClinicMaintenance>();
+                    list = (from x in context.tblClinicMaintenances select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+
+        public static Queue<tblClinicMaintenance> GetMaintenanceQueue()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                {
+                    List<tblClinicMaintenance> list = GetMaintenanceList();
+                    if (list.Count != 0)
+                    {
+                        Queue<tblClinicMaintenance> queue = new Queue<tblClinicMaintenance>();
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            queue.Enqueue(list[i]);
+                        }
+                        return queue;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+
+        #endregion        
+
+        #region DELETE MAINTENANCE
+        public static void DeleteMaintenance(tblClinicMaintenance maintenance)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities3 context = new MedicalInstitutionEntities3())
+                {
+                    tblClinicMaintenance toDelete = (from u in context.tblClinicMaintenances where u.maintenanceId == maintenance.maintenanceId select u).First();
+                    context.tblClinicMaintenances.Remove(toDelete);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
             }
         }
         #endregion

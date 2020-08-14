@@ -23,6 +23,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         public int maintenanceId { get; set; }
         public bool permissionToExpand { get; set; }
         public bool accessibilityOfInvalids { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblReport> tblReports { get; set; }

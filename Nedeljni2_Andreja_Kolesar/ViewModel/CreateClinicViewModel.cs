@@ -74,7 +74,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 //add new clinic
                 tblInstitute institute = Service.Service.AddInstitute(newClinic);
                 admininstrator.instituteId = institute.instituteId;
-                //edit admin
+                //edit maintenance
                 Service.Service.AddAdministrator(admininstrator);
                 if (institute != null)
                 {

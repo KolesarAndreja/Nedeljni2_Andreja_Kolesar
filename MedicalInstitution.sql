@@ -63,6 +63,7 @@ CREATE TABLE tblUser(
 
 CREATE TABLE tblClinicMaintenance(
 maintenanceId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+name varchar(30) NOT NULL,
 permissionToExpand BIT NOT NULL,
 accessibilityOfInvalids BIT NOT NULL
 );
