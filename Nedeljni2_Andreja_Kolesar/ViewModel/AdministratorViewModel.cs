@@ -325,6 +325,133 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             return true;
         }
+
+
+
+        private ICommand _editPatient;
+        public ICommand editPatient
+        {
+            get
+            {
+                if (_editPatient == null)
+                {
+                    _editPatient = new RelayCommand(param => EditPatientDateExecute(), param => CanEditPatientExecute());
+                }
+                return _editPatient;
+            }
+        }
+
+        private void EditPatientDateExecute()
+        {
+
+            try
+            {
+                int id = patient.patientId;
+                int userId = patient.userId;
+                tblClinicPatient pat = Service.Service.PatientById(id);
+                tblUser user = Service.Service.UserById(userId);
+                RegisterPatient create = new RegisterPatient(pat,user);
+                create.ShowDialog();
+                if ((create.DataContext as RegisterPatientViewModel).isUpdated == true)
+                {
+                    patientList = Service.Service.GetPatientsList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanEditPatientExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _editManager;
+        public ICommand editManager
+        {
+            get
+            {
+                if (_editManager == null)
+                {
+                    _editManager = new RelayCommand(param => EditManagerExecute(), param => CanEditManagerExecute());
+                }
+                return _editManager;
+            }
+        }
+
+        private void EditManagerExecute()
+        {
+
+            try
+            {
+                int managerId = manager.managerId;
+                int userId = manager.userId;
+                tblUser user = Service.Service.UserById(userId);
+                tblClinicManager man= Service.Service.ManagerById(managerId);
+                CreateManager create = new CreateManager(man, user);
+                create.ShowDialog();
+                if ((create.DataContext as CreateManagerViewModel).isUpdated == true)
+                {
+                    managerList = Service.Service.GetManagersList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanEditManagerExecute()
+        {
+            return true;
+        }
+
+
+        private ICommand _editDoctor;
+        public ICommand editDoctor
+        {
+            get
+            {
+                if (_editDoctor == null)
+                {
+                    _editDoctor = new RelayCommand(param => EditDoctorExecute(), param => CanEditDoctorExecute());
+                }
+                return _editDoctor;
+            }
+        }
+
+        private void EditDoctorExecute()
+        {
+            try
+            {
+                int id = doctor.doctorId;
+                int userId = doctor.userId;
+                tblUser user = Service.Service.UserById(userId);
+                tblClinicDoctor doc = Service.Service.DoctorById(id);
+                CreateDoctor create = new CreateDoctor(doc, user);
+                create.ShowDialog();
+                if ((create.DataContext as CreateDoctorViewModel).isUpdated == true)
+                {
+                    doctorList = Service.Service.GetDoctorsList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanEditDoctorExecute()
+        {
+            return true;
+        }
         #endregion
 
         #region log out
@@ -388,6 +515,99 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
         private bool CanDeleteExecute()
+        {
+            return true;
+        }
+
+
+        private ICommand _deletePatient;
+        public ICommand deletePatient
+        {
+            get
+            {
+                if (_deletePatient == null)
+                {
+                    _deletePatient = new Command.RelayCommand(param => DeletePatientExecute(), param => CanDeletePatientExecute());
+
+                }
+                return _deletePatient;
+            }
+        }
+
+        private void DeletePatientExecute()
+        {
+            MessageBoxResult result = MessageBox.Show("Do you realy want to delete this Patient?", "Delete Patient", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Service.Service.DeletePatient(Service.Service.PatientById(patient.patientId));
+                patientList = Service.Service.GetPatientsList();
+            }
+        }
+        private bool CanDeletePatientExecute()
+        {
+            return true;
+        }
+
+
+
+        private ICommand _deleteManager;
+        public ICommand deleteManager
+        {
+            get
+            {
+                if (_deleteManager == null)
+                {
+                    _deleteManager = new Command.RelayCommand(param => DeleteManagerExecute(), param => CanDeleteManagerExecute());
+
+                }
+                return _deleteManager;
+            }
+        }
+
+        private void DeleteManagerExecute()
+        {
+            MessageBoxResult result = MessageBox.Show("Do you realy want to delete this Manager?", "Delete Manager", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Service.Service.DeleteManager(Service.Service.ManagerById(manager.managerId));
+                managerList = Service.Service.GetManagersList();
+                doctorList = Service.Service.GetDoctorsList();
+            }
+        }
+        private bool CanDeleteManagerExecute()
+        {
+            return true;
+        }
+
+
+        private ICommand _deleteDoctor;
+        public ICommand deleteDoctor
+        {
+            get
+            {
+                if (_deleteDoctor == null)
+                {
+                    _deleteDoctor = new Command.RelayCommand(param => DeleteDoctorExecute(), param => CanDeleteDoctorExecute());
+
+                }
+                return _deleteDoctor;
+            }
+        }
+
+        private void DeleteDoctorExecute()
+        {
+            MessageBoxResult result = MessageBox.Show("Do you realy want to delete this Doctor?", "Delete Doctor", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Service.Service.DeleteDoctor(Service.Service.DoctorById(doctor.doctorId));
+                doctorList = Service.Service.GetDoctorsList();
+                patientList = Service.Service.GetPatientsList();
+            }
+        }
+        private bool CanDeleteDoctorExecute()
         {
             return true;
         }

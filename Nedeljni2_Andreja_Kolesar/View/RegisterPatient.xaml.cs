@@ -15,10 +15,10 @@ namespace Nedeljni2_Andreja_Kolesar.View
             this.DataContext = new RegisterPatientViewModel(this);
         }
 
-        public RegisterPatient(tblClinicPatient patient)
+        public RegisterPatient(tblClinicPatient patient, tblUser user)
         {
             InitializeComponent();
-            this.DataContext = new RegisterPatientViewModel(this, patient);
+            this.DataContext = new RegisterPatientViewModel(this, patient,user);
         }
     }
 }

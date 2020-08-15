@@ -15,10 +15,10 @@ namespace Nedeljni2_Andreja_Kolesar.View
             this.DataContext = new CreateManagerViewModel(this);
         }
 
-        public CreateManager(tblClinicManager man)
+        public CreateManager(tblClinicManager man, tblUser user)
         {
             InitializeComponent();
-            this.DataContext = new CreateManagerViewModel(this,man);
+            this.DataContext = new CreateManagerViewModel(this,man, user);
         }
 
     }

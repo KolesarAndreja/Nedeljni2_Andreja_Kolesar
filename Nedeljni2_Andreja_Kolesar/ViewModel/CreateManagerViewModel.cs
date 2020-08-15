@@ -66,10 +66,10 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             newManager = new tblClinicManager();
         }
 
-        public CreateManagerViewModel(CreateManager open, tblClinicManager man)
+        public CreateManagerViewModel(CreateManager open, tblClinicManager man, tblUser user)
         {
             register = open;
-            newUser = new tblUser();
+            newUser = user;
             newManager = man;
 
         }

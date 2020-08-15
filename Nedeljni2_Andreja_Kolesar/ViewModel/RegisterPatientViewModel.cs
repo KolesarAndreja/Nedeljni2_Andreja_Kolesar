@@ -70,10 +70,10 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             newPatient = new tblClinicPatient();
         }
 
-        public RegisterPatientViewModel(RegisterPatient open, tblClinicPatient p)
+        public RegisterPatientViewModel(RegisterPatient open, tblClinicPatient p, tblUser user)
         {
             register = open;
-            newUser = new tblUser();
+            newUser = user;
             newPatient = p;
 
         }

@@ -62,6 +62,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 return null;
             }
         }
+        
 
         //null or return patient
         public static tblClinicPatient isPatient(tblUser e)
@@ -98,6 +99,79 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
                 return null;
             }
+        }
+
+        public static tblClinicPatient PatientById(int id)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicPatient result = (from x in context.tblClinicPatients where x.patientId == id select x).FirstOrDefault();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+            }
+
+        }
+
+        public static tblUser UserById(int id)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblUser result = (from x in context.tblUsers where x.userId == id select x).FirstOrDefault();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+            }
+
+        }
+
+
+        public static tblClinicManager ManagerById(int id)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicManager result = (from x in context.tblClinicManagers where x.managerId == id select x).FirstOrDefault();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+            }
+
+        }
+
+        public static tblClinicDoctor DoctorById(int id)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicDoctor result = (from x in context.tblClinicDoctors where x.doctorId == id select x).FirstOrDefault();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+            }
+
         }
         #endregion
 
@@ -136,7 +210,6 @@ namespace Nedeljni2_Andreja_Kolesar.Service
             }
         }
         #endregion
-
 
         #region validation
         public static bool UsedNumber(string number)
@@ -578,7 +651,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
 
         #endregion        
 
-        #region DELETE MAINTENANCE
+        #region DELETE 
         public static void DeleteMaintenance(tblClinicMaintenance maintenance)
         {
             try
@@ -587,6 +660,59 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 {
                     tblClinicMaintenance toDelete = (from u in context.tblClinicMaintenances where u.maintenanceId == maintenance.maintenanceId select u).First();
                     context.tblClinicMaintenances.Remove(toDelete);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+            }
+        }
+
+        public static void DeletePatient(tblClinicPatient patient)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicPatient toDelete = (from u in context.tblClinicPatients where u.patientId == patient.patientId select u).First();
+                    context.tblClinicPatients.Remove(toDelete);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+            }
+        }
+
+
+        public static void DeleteManager(tblClinicManager manager)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicManager toDelete = (from u in context.tblClinicManagers where u.managerId == manager.managerId select u).First();
+                    context.tblClinicManagers.Remove(toDelete);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+            }
+        }
+
+
+        public static void DeleteDoctor(tblClinicDoctor doctor)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblClinicDoctor toDelete = (from u in context.tblClinicDoctors where u.doctorId == doctor.doctorId select u).First();
+                    context.tblClinicDoctors.Remove(toDelete);
                     context.SaveChanges();
                 }
             }

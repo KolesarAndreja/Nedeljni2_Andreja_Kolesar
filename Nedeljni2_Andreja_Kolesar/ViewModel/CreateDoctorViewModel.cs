@@ -128,10 +128,10 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             allManagers = Service.Service.GetManagersList();
         }
 
-        public CreateDoctorViewModel(CreateDoctor open, tblClinicDoctor d)
+        public CreateDoctorViewModel(CreateDoctor open, tblClinicDoctor d, tblUser u)
         {
             register = open;
-            newUser = new tblUser();
+            newUser = u;
             newDoctor = d;
             allManagers = Service.Service.GetManagersList();
 
@@ -195,7 +195,10 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 tblUser u = Service.Service.AddUser(newUser);
                 newDoctor.userId = u.userId;
                 newDoctor.shift = selectedShift;
-                newDoctor.managerId = selectedManager.managerId;
+                if (selectedManager.managerId != 0)
+                {
+                    newDoctor.managerId = selectedManager.managerId;
+                }
                 tblClinicDoctor doc = Service.Service.AddDoctor(newDoctor);
                 if (u != null && doc != null)
                 {

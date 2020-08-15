@@ -15,10 +15,10 @@ namespace Nedeljni2_Andreja_Kolesar.View
             this.DataContext = new CreateDoctorViewModel(this);
         }
 
-        public CreateDoctor(tblClinicDoctor doc)
+        public CreateDoctor(tblClinicDoctor doc,tblUser user)
         {
             InitializeComponent();
-            this.DataContext = new CreateDoctorViewModel(this,doc);
+            this.DataContext = new CreateDoctorViewModel(this,doc,user);
         }
     }
 }
