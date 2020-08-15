@@ -7,38 +7,38 @@
         mc:Ignorable="d"
         Title="Administrator"
         Height="450"
-        Width="800">
+        Width="840">
     <Grid>
         <Grid Name="gridButtons">
             <Button Content="Log Out"
                     Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left"
                     Height="20"
-                    Margin="675,20,0,0"
+                    Margin="695,20,0,0"
                     VerticalAlignment="Top"
                     Width="87" />
             <Button Content="Create Maintenance"
                     Command="{Binding addMaintenance, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left"
-                    Margin="40,20,0,0"
+                    Margin="40,60,0,0"
                     VerticalAlignment="Top"
                     Width="135" />
             <Button Content="Create Manager"
                     Command="{Binding addManager, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left"
-                    Margin="180,20,0,0"
+                    Margin="190,60,0,0"
                     VerticalAlignment="Top"
                     Width="135" />
             <Button Content="Create Doctor"
                     Command="{Binding addDoctor, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left"
-                    Margin="320,20,0,0"
+                    Margin="345,60,0,0"
                     VerticalAlignment="Top"
                     Width="135" />
             <Button Content="Create Patient"
                     Command="{Binding addPatient, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left"
-                    Margin="460,20,0,0"
+                    Margin="500,60,0,0"
                     VerticalAlignment="Top"
                     Width="135" />
             <Button Content="Read Maintenances"
@@ -77,6 +77,12 @@
                     Margin="40,270,0,0"
                     VerticalAlignment="Top"
                     Width="155" />
+            <Button Content="Edit Clinic"
+                    Command="{Binding editClinic, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Margin="647,60,0,0"
+                    VerticalAlignment="Top"
+                    Width="135" />
         </Grid>
         <DataGrid Name="DataGridAllMaintenances"
                   Visibility="{Binding viewMaintenance, UpdateSourceTrigger=PropertyChanged}"

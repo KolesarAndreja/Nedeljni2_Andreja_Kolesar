@@ -95,7 +95,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             set
             {
                 _maintenance = value;
-                OnPropertyChanged("maintenance");
+                OnPropertyChanged("editClinic");
             }
         }
 
@@ -289,6 +289,39 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         #endregion
 
         #region EDIT
+        private ICommand _editClinic;
+        public ICommand editClinic
+        {
+            get
+            {
+                if (_editClinic == null)
+                {
+                    _editClinic = new RelayCommand(param => EditClinicExecute(), param => CanEditClinicExecute());
+                }
+                return _editClinic;
+            }
+        }
+
+        private void EditClinicExecute()
+        {
+            try
+            {
+                tblInstitute institute = Service.Service.GetInstitute();
+                EditClinic editClinic = new EditClinic(institute);
+                editClinic.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanEditClinicExecute()
+        {
+            return true;
+        }
+
+
+
         private ICommand _edit;
         public ICommand edit
         {

@@ -27,6 +27,23 @@ namespace Nedeljni2_Andreja_Kolesar.Service
             }
         }
 
+        public static tblInstitute GetInstitute()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    tblInstitute result = (from x in context.tblInstitutes select x).FirstOrDefault();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+            }
+        }
+
         //null or manager
         public static tblClinicManager isManager(tblUser e)
         {
@@ -431,7 +448,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                     {
                         //add 
                         tblClinicAdministrator newAdmin = new tblClinicAdministrator();
-                        //newAdmin.instituteId = maintenance.instituteId;
+                        //newAdmin.instituteId = editClinic.instituteId;
                         newAdmin.userId = admin.userId;
                         context.tblClinicAdministrators.Add(newAdmin);
                         context.SaveChanges();
@@ -534,6 +551,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                         instituteToEdit.numberOfRooms = clinic.numberOfRooms;
                         instituteToEdit.terrace = clinic.terrace;
                         instituteToEdit.yard = clinic.yard;
+                        instituteToEdit.instituteOwner = clinic.instituteOwner;
 
                         context.SaveChanges();
                         return clinic;

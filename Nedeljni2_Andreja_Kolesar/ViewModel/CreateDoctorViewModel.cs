@@ -195,7 +195,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 tblUser u = Service.Service.AddUser(newUser);
                 newDoctor.userId = u.userId;
                 newDoctor.shift = selectedShift;
-                if (selectedManager.managerId != 0)
+                if (selectedManager != null)
                 {
                     newDoctor.managerId = selectedManager.managerId;
                 }

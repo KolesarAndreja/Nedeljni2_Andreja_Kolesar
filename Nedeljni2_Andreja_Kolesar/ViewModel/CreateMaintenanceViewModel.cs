@@ -72,7 +72,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 //just for adding new items
                 if (!isEditingWindow)
                 {
-                    message = "Clinic maintenance has been added.";
+                    message = "Clinic editClinic has been added.";
                     //if there is already 3 services, remove first one, then continue with adding
                     if (queue != null && queue.Count == 3)
                     {
@@ -82,7 +82,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 }
                 else
                 {
-                    message = "Clinic maintenance has been updated.";
+                    message = "Clinic editClinic has been updated.";
                 }
                 tblClinicMaintenance maintenance = Service.Service.AddMaintenance(newMaintenance);
                 if (maintenance != null)

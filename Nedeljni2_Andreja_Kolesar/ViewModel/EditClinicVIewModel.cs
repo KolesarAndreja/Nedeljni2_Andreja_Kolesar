@@ -2,56 +2,33 @@
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace Nedeljni2_Andreja_Kolesar.ViewModel
 {
-    class CreateClinicViewModel:ViewModelBase
+    class EditClinicVIewModel:ViewModelBase
     {
-        #region Prop
-        CreateClinic clinic;
-        private tblInstitute _newClinic;
-        public tblInstitute newClinic
+        EditClinic clinic;
+        private tblInstitute _editClinic;
+        public tblInstitute editClinic
         {
             get
             {
-                return _newClinic;
+                return _editClinic;
             }
             set
             {
-                _newClinic = value;
-                OnPropertyChanged("newClinic");
+                _editClinic = value;
+                OnPropertyChanged("editClinic");
             }
         }
-
-        private tblClinicAdministrator _admininstrator;
-        public tblClinicAdministrator admininstrator
-        {
-            get
-            {
-                return _admininstrator;
-            }
-            set
-            {
-                _admininstrator = value;
-                OnPropertyChanged("admininstrator");
-            }
-        }
-        #endregion
-
-        #region constructor
-        public CreateClinicViewModel(CreateClinic open, tblClinicAdministrator admin)
+        public EditClinicVIewModel(EditClinic open, tblInstitute institute)
         {
             clinic = open;
-            newClinic = new tblInstitute();
-            admininstrator = admin;
+            editClinic = institute;
         }
-        #endregion
+
 
         #region save
         private ICommand _save;
@@ -72,16 +49,11 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             try
             {
                 //add new clinic
-                tblInstitute institute = Service.Service.AddInstitute(newClinic);
-                admininstrator.instituteId = institute.instituteId;
-                //edit editClinic
-                Service.Service.AddAdministrator(admininstrator);
+                tblInstitute institute = Service.Service.AddInstitute(editClinic);
                 if (institute != null)
                 {
-                    Administrator a = new Administrator();
-                    MessageBox.Show("Clinic has been created.");
+                    MessageBox.Show("Clinic has been edited.");
                     clinic.Close();
-                    a.Show();
                 }
             }
             catch (Exception ex)
@@ -104,5 +76,36 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             return true;
         }
         #endregion
+
+        private ICommand _logOut;
+        public ICommand logOut
+        {
+            get
+            {
+                if (_logOut == null)
+                {
+                    _logOut = new RelayCommand(param => LogOutExecute(), param => CanLogOutExecute());
+                }
+                return _logOut;
+            }
+        }
+
+        private void LogOutExecute()
+        {
+            try
+            {
+                clinic.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanLogOutExecute()
+        {
+            return true;
+        }
     }
 }
