@@ -48,12 +48,21 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
-                //add new clinic
-                tblInstitute institute = Service.Service.AddInstitute(editClinic);
-                if (institute != null)
+                tblInstitute previous = Service.Service.GetInstitute();
+                if(previous.numberOfAccessPointsForInvalids>editClinic.numberOfAccessPointsForInvalids || previous.numberOfAmbulanceAccessPoints > editClinic.numberOfAmbulanceAccessPoints)
                 {
-                    MessageBox.Show("Clinic has been edited.");
-                    clinic.Close();
+                    MessageBox.Show("Access points can only be greater than previous ones.");
+                }
+                else
+                { 
+                    //edit
+                    tblInstitute institute = Service.Service.AddInstitute(editClinic);
+                    if (institute != null)
+                    {
+                        MessageBox.Show("Clinic has been edited.");
+                        clinic.Close();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -64,15 +73,6 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute(object obj)
         {
-            //currentPassword = (obj as PasswordBox).Password;
-            //if (!String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(currentPassword) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth!=null && !String.IsNullOrEmpty(newUser.ICnumber))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
             return true;
         }
         #endregion

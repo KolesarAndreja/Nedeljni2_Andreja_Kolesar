@@ -117,6 +117,9 @@
     <Compile Include="Service\vwClinicPatient.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ValidAccount.cs" />
+    <Compile Include="Validation\ValidCardNumber.cs" />
+    <Compile Include="Validation\ValidIC.cs" />
     <Compile Include="Validation\ValidJmbg.cs" />
     <Compile Include="Validation\ValidPassword.cs" />
     <Compile Include="Validation\ValidUsername.cs" />

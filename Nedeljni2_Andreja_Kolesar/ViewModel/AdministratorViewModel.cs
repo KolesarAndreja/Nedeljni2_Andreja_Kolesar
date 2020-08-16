@@ -16,13 +16,13 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             administrator = open;
             maintenanceList = Service.Service.GetMaintenanceList();
-            doctorList = Service.Service.GetDoctorsList();
-            patientList = Service.Service.GetPatientsList();
+            doctorList = Service.Service.DoctorList();
+            patientList = Service.Service.PatientsList();
             managerList = Service.Service.GetManagersList();
             maintenance = new tblClinicMaintenance();
-            doctor = new vwClinicDoctor();
+            doctor = new tblClinicDoctor();
             manager = new vwClinicManager();
-            patient = new vwClinicPatient();
+            patient = new tblClinicPatient();
         }
         #endregion
 
@@ -41,8 +41,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private List<vwClinicDoctor> _doctorList;
-        public List<vwClinicDoctor> doctorList
+        private List<tblClinicDoctor> _doctorList;
+        public List<tblClinicDoctor> doctorList
         {
             get
             {
@@ -55,8 +55,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private List<vwClinicPatient> _patientList;
-        public List<vwClinicPatient> patientList
+        private List<tblClinicPatient> _patientList;
+        public List<tblClinicPatient> patientList
         {
             get
             {
@@ -99,8 +99,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private vwClinicDoctor _doctor;
-        public vwClinicDoctor doctor
+        private tblClinicDoctor _doctor;
+        public tblClinicDoctor doctor
         {
             get
             {
@@ -127,8 +127,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             }
         }
 
-        private vwClinicPatient _patient;
-        public vwClinicPatient patient
+        private tblClinicPatient _patient;
+        public tblClinicPatient patient
         {
             get
             {
@@ -236,7 +236,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 create.ShowDialog();
                 if ((create.DataContext as CreateDoctorViewModel).isUpdated == true)
                 {
-                    doctorList = Service.Service.GetDoctorsList();
+                    doctorList = Service.Service.DoctorList();
 
                 }
             }
@@ -273,7 +273,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 register.ShowDialog();
                 if ((register.DataContext as RegisterPatientViewModel).isUpdated == true)
                 {
-                    patientList = Service.Service.GetPatientsList();
+                    patientList = Service.Service.PatientsList();
 
                 }
             }
@@ -380,14 +380,13 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             try
             {
                 int id = patient.patientId;
-                int userId = patient.userId;
-                tblClinicPatient pat = Service.Service.PatientById(id);
+                int? userId = patient.userId;
                 tblUser user = Service.Service.UserById(userId);
-                RegisterPatient create = new RegisterPatient(pat,user);
+                RegisterPatient create = new RegisterPatient(patient,user);
                 create.ShowDialog();
                 if ((create.DataContext as RegisterPatientViewModel).isUpdated == true)
                 {
-                    patientList = Service.Service.GetPatientsList();
+                    patientList = Service.Service.PatientsList();
                 }
 
             }
@@ -463,15 +462,13 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
-                int id = doctor.doctorId;
-                int userId = doctor.userId;
+                int? userId = doctor.userId;
                 tblUser user = Service.Service.UserById(userId);
-                tblClinicDoctor doc = Service.Service.DoctorById(id);
-                CreateDoctor create = new CreateDoctor(doc, user);
+                CreateDoctor create = new CreateDoctor(doctor, user);
                 create.ShowDialog();
                 if ((create.DataContext as CreateDoctorViewModel).isUpdated == true)
                 {
-                    doctorList = Service.Service.GetDoctorsList();
+                    doctorList = Service.Service.DoctorList();
                 }
 
             }
@@ -574,7 +571,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             if (result == MessageBoxResult.Yes)
             {
                 Service.Service.DeletePatient(Service.Service.PatientById(patient.patientId));
-                patientList = Service.Service.GetPatientsList();
+                patientList = Service.Service.PatientsList();
             }
         }
         private bool CanDeletePatientExecute()
@@ -606,7 +603,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             {
                 Service.Service.DeleteManager(Service.Service.ManagerById(manager.managerId));
                 managerList = Service.Service.GetManagersList();
-                doctorList = Service.Service.GetDoctorsList();
+                doctorList = Service.Service.DoctorList();
             }
         }
         private bool CanDeleteManagerExecute()
@@ -636,8 +633,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             if (result == MessageBoxResult.Yes)
             {
                 Service.Service.DeleteDoctor(Service.Service.DoctorById(doctor.doctorId));
-                doctorList = Service.Service.GetDoctorsList();
-                patientList = Service.Service.GetPatientsList();
+                doctorList = Service.Service.DoctorList();
+                patientList = Service.Service.PatientsList();
             }
         }
         private bool CanDeleteDoctorExecute()

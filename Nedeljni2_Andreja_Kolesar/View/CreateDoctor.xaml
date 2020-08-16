@@ -3,12 +3,16 @@
         xmlns:Converter="clr-namespace:Nedeljni2_Andreja_Kolesar.Converter"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Validation="clr-namespace:Nedeljni2_Andreja_Kolesar.Validation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
         mc:Ignorable="d"
         Title="CreateDoctor" Height="650" Width="500">
     <Window.Resources>
         <Converter:StringConverter x:Key="stringConverterKey" />
+        <Converter:BoolRadioConverter x:Key="boolConverterKey" />
+        <Converter:BoolRadioConverter x:Key="inverseBoolRadioConverter"
+                                      Inverse="True" />
     </Window.Resources>
     <Grid>
         <Button Content="Close"
@@ -39,13 +43,24 @@
                VerticalAlignment="Top"
                Width="90" />
         <TextBox x:Name="txtLastname"
-                 Text="{Binding newUser.ICnumber, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                  HorizontalAlignment="Left"
                  Height="23"
                  Margin="120,120,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
-                 Width="195" />
+                 Width="195">
+            <TextBox.Text>
+                <Binding Path="newUser.ICnumber"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidIC />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Date Of Birth:"
                HorizontalAlignment="Left"
                Height="25"
@@ -66,14 +81,26 @@
                Margin="30,200,0,0"
                VerticalAlignment="Top"
                Width="90" />
-        <TextBox  Text="{Binding newUser.username, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox 
+                  Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                   Name="txtJm"
                   HorizontalAlignment="Left"
                   Height="23"
                   Margin="120,200,0,0"
                   TextWrapping="Wrap"
                   VerticalAlignment="Top"
-                  Width="195" />
+                  Width="195">
+            <TextBox.Text>
+                <Binding Path="newUser.username"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidUsername />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Password:"
                HorizontalAlignment="Left"
                Height="25"
@@ -151,13 +178,24 @@
                Width="110"
                RenderTransformOrigin="1.944,-0.8" />
         <TextBox x:Name="txtCardNumber"
-                 Text="{Binding newDoctor.account, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                  HorizontalAlignment="Left"
                  Height="23"
                  Margin="120,360,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
-                 Width="195" />
+                 Width="195">
+            <TextBox.Text>
+                <Binding Path="newDoctor.account"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidAccount />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Department:"
                HorizontalAlignment="Left"
                Height="25"
@@ -206,5 +244,26 @@
                   Margin="120,482,0,0"
                   VerticalAlignment="Top"
                   Width="195" />
+        <Label Content="Reception:"
+               HorizontalAlignment="Left"
+               Height="30"
+               Margin="30,517,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <RadioButton Content="Yes"
+                     x:Name="yes_Copy"
+                     GroupName="Reception"
+                     IsChecked="{Binding newDoctor.admissionOfPatients, Converter={StaticResource boolConverterKey}}"
+                     HorizontalAlignment="Left"
+                     Margin="140,523,0,0"
+                     VerticalAlignment="Top" />
+        <RadioButton Content="No"
+                     x:Name="no_Copy"
+                     GroupName="Reception"
+                     IsChecked="{Binding newDoctor.admissionOfPatients, Converter={StaticResource inverseBoolRadioConverter}}"
+                     HorizontalAlignment="Left"
+                     Margin="225,523,0,0"
+                     VerticalAlignment="Top" />
     </Grid>
 </Window>

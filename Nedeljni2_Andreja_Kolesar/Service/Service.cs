@@ -136,7 +136,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
 
         }
 
-        public static tblUser UserById(int id)
+        public static tblUser UserById(int? id)
         {
             try
             {
@@ -229,6 +229,7 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         #endregion
 
         #region validation
+        //used card number
         public static bool UsedNumber(string number)
         {
             try
@@ -253,6 +254,41 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
                 {
                     bool b = (from x in context.tblUsers where x.username == name select x).Any();
+                    return b;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return true;
+            }
+        }
+
+
+        public static bool UsedAccount(string account)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    bool b = (from x in context.tblClinicDoctors where x.account == account select x).Any();
+                    return b;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return true;
+            }
+        }
+
+        public static bool UsedCardNumber(string number)
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    bool b = (from x in context.tblClinicPatients where x.cardNumber == number select x).Any();
                     return b;
                 }
             }
@@ -567,6 +603,24 @@ namespace Nedeljni2_Andreja_Kolesar.Service
         #endregion
 
         #region get lists, queue
+        public static List<tblClinicDoctor> DoctorList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    List<tblClinicDoctor> list = new List<tblClinicDoctor>();
+                    list = (from x in context.tblClinicDoctors select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
         public static List<vwClinicDoctor> GetDoctorsList()
         {
             try
@@ -610,6 +664,24 @@ namespace Nedeljni2_Andreja_Kolesar.Service
                 {
                     List<vwClinicPatient> list = new List<vwClinicPatient>();
                     list = (from x in context.vwClinicPatients select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        public static List<tblClinicPatient> PatientsList()
+        {
+            try
+            {
+                using (MedicalInstitutionEntities4 context = new MedicalInstitutionEntities4())
+                {
+                    List<tblClinicPatient> list = new List<tblClinicPatient>();
+                    list = (from x in context.tblClinicPatients select x).ToList();
                     return list;
                 }
             }

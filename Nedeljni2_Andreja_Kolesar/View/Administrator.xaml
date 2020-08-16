@@ -141,8 +141,8 @@
                   FontWeight="Bold"
                   Margin="225,97,22,99">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Fullname"
-                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Manager Id"
+                                    Binding="{Binding managerId}" />
                 <DataGridTextColumn Header="Max number of doctors"
                                     Binding="{Binding maxNumberOfDoctors}" />
                 <DataGridTextColumn Header="Min number of rooms"
@@ -189,16 +189,14 @@
                   FontWeight="Bold"
                   Margin="225,97,22,99">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Fullname"
-                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Unique Number"
+                                    Binding="{Binding doctorId}" />
                 <DataGridTextColumn Header="Departmen"
                                     Binding="{Binding department}" />
                 <DataGridTextColumn Header="Shift"
                                     Binding="{Binding shift}" />
                 <DataGridTextColumn Header="Reception"
                                     Binding="{Binding admissionOfPatients}" />
-                <DataGridTextColumn Header="Floor"
-                                    Binding="{Binding floorNumber}" />
                 <DataGridTextColumn Header="Manager Id"
                                     Binding="{Binding managerId}" />
                 <DataGridTemplateColumn>
@@ -239,12 +237,12 @@
                   FontWeight="Bold"
                   Margin="225,97,22,99">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Fullname"
-                                    Binding="{Binding fullname}" />
+                <DataGridTextColumn Header="Patient Id"
+                                    Binding="{Binding patientId}" />
                 <DataGridTextColumn Header="Card number"
                                     Binding="{Binding cardNumber}" />
-                <DataGridTextColumn Header="Doctor Id"
-                                    Binding="{Binding doctorId}" />
+                <DataGridTextColumn Header="Expiry date"
+                                    Binding="{Binding expiryDate}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

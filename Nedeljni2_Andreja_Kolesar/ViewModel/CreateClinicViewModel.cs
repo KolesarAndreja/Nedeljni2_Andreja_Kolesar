@@ -92,16 +92,14 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute(object obj)
         {
-            //currentPassword = (obj as PasswordBox).Password;
-            //if (!String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(currentPassword) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth!=null && !String.IsNullOrEmpty(newUser.ICnumber))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return true;
+            if (!String.IsNullOrEmpty(newClinic.address) && !String.IsNullOrEmpty(newClinic.instituteOwner) && !String.IsNullOrEmpty(newClinic.name) && newClinic.constructionDate != null && newClinic.numberOfAccessPointsForInvalids != null && newClinic.numberOfAmbulanceAccessPoints != null && newClinic.numberOfFloors != 0 && newClinic.numberOfRooms != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

@@ -3,15 +3,15 @@ using System.Windows.Controls;
 
 namespace Nedeljni2_Andreja_Kolesar.Validation
 {
-    class ValidUsername : ValidationRule
+    class ValidAccount : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string username = value as string;
+            string number = value as string;
 
-            if (Service.Service.UsedUsername(username))
+            if (Service.Service.UsedAccount(number))
             {
-                return new ValidationResult(false, "This username is already taken");
+                return new ValidationResult(false, "This account is already taken");
             }
             else
             {

@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Validation="clr-namespace:Nedeljni2_Andreja_Kolesar.Validation"
         xmlns:Converter="clr-namespace:Nedeljni2_Andreja_Kolesar.Converter"
         xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
+        
         mc:Ignorable="d"
         Title="Master"
         Height="500"
@@ -43,13 +45,24 @@
                    VerticalAlignment="Top"
                    Width="90" />
             <TextBox x:Name="txtLastname"
-                     Text="{Binding newUser.ICnumber, UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                      HorizontalAlignment="Left"
                      Height="23"
                      Margin="120,120,0,0"
                      TextWrapping="Wrap"
                      VerticalAlignment="Top"
-                     Width="195" />
+                     Width="195">
+                <TextBox.Text>
+                    <Binding Path="newUser.ICnumber"
+                             UpdateSourceTrigger="PropertyChanged"
+                             ValidatesOnDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <Validation:ValidIC />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Label Content="Date Of Birth:"
                    HorizontalAlignment="Left"
                    Height="25"
@@ -70,14 +83,26 @@
                    Margin="30,200,0,0"
                    VerticalAlignment="Top"
                    Width="90" />
-            <TextBox  Text="{Binding newUser.username, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox  
+                      Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                       Name="txtJm"
                       HorizontalAlignment="Left"
                       Height="23"
                       Margin="120,200,0,0"
                       TextWrapping="Wrap"
                       VerticalAlignment="Top"
-                      Width="195" />
+                      Width="195">
+                <TextBox.Text>
+                    <Binding Path="newUser.username"
+                             UpdateSourceTrigger="PropertyChanged"
+                             ValidatesOnDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <Validation:ValidUsername />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Label Content="Password:"
                    HorizontalAlignment="Left"
                    Height="25"
@@ -136,11 +161,12 @@
                     VerticalAlignment="Top"
                     Width="140" />
             <PasswordBox HorizontalAlignment="Left"
+                         Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                          x:Name="passwordBox"
                          Margin="120,243,0,0"
                          VerticalAlignment="Top"
                          Width="195"
-                         Height="25" />
+                         Height="25"></PasswordBox>
             <Label Content="CREATE CLINIC ADMINISTRATOR:"
                    HorizontalAlignment="Left"
                    Margin="20,55,0,0"

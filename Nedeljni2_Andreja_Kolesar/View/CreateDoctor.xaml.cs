@@ -20,5 +20,6 @@ namespace Nedeljni2_Andreja_Kolesar.View
             InitializeComponent();
             this.DataContext = new CreateDoctorViewModel(this,doc,user);
         }
+
     }
 }

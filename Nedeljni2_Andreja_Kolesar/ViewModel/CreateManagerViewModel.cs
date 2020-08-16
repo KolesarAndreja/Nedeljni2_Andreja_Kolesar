@@ -128,17 +128,25 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             try
             {
                 currentPassword = (obj as PasswordBox).Password;
-                newUser.password = currentPassword;
-                tblUser u = Service.Service.AddUser(newUser);
-                newManager.userId = u.userId;
-                tblClinicManager m = Service.Service.AddManager(newManager);
-                if (u != null && m != null)
+                if (Model.Person.ValidPassword(currentPassword))
                 {
-                    MessageBox.Show("Manager has been registered.");
-                    isUpdated = true;
-                    register.Close();
+                    newUser.password = currentPassword;
+                    tblUser u = Service.Service.AddUser(newUser);
+                    newManager.userId = u.userId;
+                    tblClinicManager m = Service.Service.AddManager(newManager);
+                    if (u != null && m != null)
+                    {
+                        MessageBox.Show("Manager has been registered.");
+                        isUpdated = true;
+                        register.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pasword must contain at least 6charc including one upper, one lower, one numeric and one special char. Try again");
                 }
             }
+            
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
@@ -147,16 +155,18 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute(object obj)
         {
-            //currentPassword = (obj as PasswordBox).Password;
-            //if (!String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(currentPassword) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth!=null && !String.IsNullOrEmpty(newUser.ICnumber))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return true;
+            if (!String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth != null && !String.IsNullOrEmpty(newUser.ICnumber))
+            {
+                currentPassword = (obj as PasswordBox).Password;
+                if (!String.IsNullOrEmpty(currentPassword))
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }
