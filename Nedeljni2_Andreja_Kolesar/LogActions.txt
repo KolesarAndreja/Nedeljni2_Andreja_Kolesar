@@ -19,3 +19,8 @@
 16-Aug-20 21:39 Administrator has logged out.
 16-Aug-20 22:00 Unsuccessful login with username eeee and password eeee
 16-Aug-20 22:00 Unsuccessful login with username 3333 and password 222
+16-Aug-20 22:02 Manager with username ttt has logged in.
+16-Aug-20 22:02 Manager with username ttt has logged in.
+16-Aug-20 22:03 Administrator has logged in.
+16-Aug-20 22:03 Administrator has logged out.
+16-Aug-20 22:03 Patient with username mile has logged in.

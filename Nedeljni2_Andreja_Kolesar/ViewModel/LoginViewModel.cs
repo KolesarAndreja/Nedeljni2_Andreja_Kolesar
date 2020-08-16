@@ -81,7 +81,6 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                         content = "Patient with username " + person.username + " has logged in."; 
                         tblClinicPatient patient = Service.Service.isPatient(user);
                         Patient p = new Patient();
-                        login.Close();
                         p.Show();
                     }
                     else if (Service.Service.isDoctor(user) != null)
@@ -89,7 +88,6 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                         content = "Doctor with username " + person.username + " has logged in.";
                         tblClinicDoctor doctor = Service.Service.isDoctor(user);
                         Doctor d = new Doctor();
-                        login.Close();
                         d.Show();
                     }
                     else if (Service.Service.isManager(user) != null)
@@ -97,7 +95,6 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                         content = "Manager with username " + person.username + " has logged in.";
                         tblClinicManager manager = Service.Service.isManager(user);
                         Manager m = new Manager();
-                        login.Close();
                         m.Show();
                     }
                     else
