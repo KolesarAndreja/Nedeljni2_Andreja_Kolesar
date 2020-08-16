@@ -1,0 +1,26 @@
+16-Aug-20 21:18 Doctor has been updated
+16-Aug-20 21:18 Doctor registration failed due to weak password
+16-Aug-20 21:19 Manager with id:2  has been upated
+16-Aug-20 21:27 Administrator has logged in.
+16-Aug-20 21:27 Clinic Maintenance has been added.Id: 2
+16-Aug-20 21:27 Clinic Maintenance has been added.Id: 3
+16-Aug-20 21:27 Clinic Maintenance id: 1 has been deleted
+16-Aug-20 21:27 Clinic Maintenance has been added.Id: 4
+16-Aug-20 21:28 Clinic Maintenance has been updated.Id: 3
+16-Aug-20 21:36 Administrator has logged in.
+16-Aug-20 21:36 Patient registration failed due to weak password
+16-Aug-20 21:36 Patient registration failed due to weak password
+16-Aug-20 21:36 Patient with id: 1 has been upadated.
+16-Aug-20 21:37 Administrator has logged out.
+16-Aug-20 21:37 Administrator has logged in.
+16-Aug-20 21:38 Patient registration failed due to weak password
+16-Aug-20 21:38 Patient with id: 1 has been upadated.
+16-Aug-20 21:39 Administrator has logged in.
+16-Aug-20 21:39 Administrator has logged out.
+16-Aug-20 22:00 Unsuccessful login with username eeee and password eeee
+16-Aug-20 22:00 Unsuccessful login with username 3333 and password 222
+16-Aug-20 22:02 Manager with username ttt has logged in.
+16-Aug-20 22:02 Manager with username ttt has logged in.
+16-Aug-20 22:03 Administrator has logged in.
+16-Aug-20 22:03 Administrator has logged out.
+16-Aug-20 22:03 Patient with username mile has logged in.

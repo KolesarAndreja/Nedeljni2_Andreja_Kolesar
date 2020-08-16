@@ -1,0 +1,269 @@
+﻿<Window x:Class="Nedeljni2_Andreja_Kolesar.View.CreateDoctor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Converter="clr-namespace:Nedeljni2_Andreja_Kolesar.Converter"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Validation="clr-namespace:Nedeljni2_Andreja_Kolesar.Validation"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nedeljni2_Andreja_Kolesar.View"
+        mc:Ignorable="d"
+        Title="CreateDoctor" Height="650" Width="500">
+    <Window.Resources>
+        <Converter:StringConverter x:Key="stringConverterKey" />
+        <Converter:BoolRadioConverter x:Key="boolConverterKey" />
+        <Converter:BoolRadioConverter x:Key="inverseBoolRadioConverter"
+                                      Inverse="True" />
+    </Window.Resources>
+    <Grid>
+        <Button Content="Close"
+                Command="{Binding logOut, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Height="25"
+                Margin="320,18,0,0"
+                VerticalAlignment="Top"
+                Width="125" />
+        <Label Content="Fullname:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,80,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <TextBox x:Name="txtFullname"
+                 Text="{Binding newUser.fullname, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,82,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195" />
+        <Label Content="Identity Card:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,120,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <TextBox x:Name="txtLastname"
+                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,120,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195">
+            <TextBox.Text>
+                <Binding Path="newUser.ICnumber"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidIC />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Label Content="Date Of Birth:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,160,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <TextBox x:Name="txtDateOfBirth"
+                 Text="{Binding newUser.dateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,160,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195" />
+        <Label Content="Username:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,200,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <TextBox 
+                  Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                  Name="txtJm"
+                  HorizontalAlignment="Left"
+                  Height="23"
+                  Margin="120,200,0,0"
+                  TextWrapping="Wrap"
+                  VerticalAlignment="Top"
+                  Width="195">
+            <TextBox.Text>
+                <Binding Path="newUser.username"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidUsername />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Label Content="Password:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,243,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <Label Content="Citizenship:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,323,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8"></Label>
+        <Label Content="Gender:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,283,0,0"
+               VerticalAlignment="Top"
+               Width="90"
+               RenderTransformOrigin="0.5,0.5"></Label>
+        <TextBox x:Name="txtSalary"
+                 Text="{Binding newUser.citizenship, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,323,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195" />
+        <RadioButton Content="M"
+                     x:Name="M"
+                     GroupName="Gender"
+                     IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = M}"
+                     HorizontalAlignment="Left"
+                     Margin="125,289,0,0"
+                     VerticalAlignment="Top" />
+        <RadioButton Content="F"
+                     x:Name="F"
+                     GroupName="Gender"
+                     IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = F}"
+                     HorizontalAlignment="Left"
+                     Margin="190,289,0,0"
+                     VerticalAlignment="Top" />
+        <RadioButton Content="X"
+                     x:Name="X"
+                     GroupName="Gender"
+                     IsChecked="{Binding newUser.gender, Converter={StaticResource ResourceKey=stringConverterKey}, ConverterParameter = X}"
+                     HorizontalAlignment="Left"
+                     Margin="250,289,0,0"
+                     VerticalAlignment="Top" />
+        <Button Content="Save"
+                Command="{Binding save, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="{Binding ElementName=passwordBox}"
+                HorizontalAlignment="Left"
+                Height="25"
+                Margin="120,560,0,0"
+                VerticalAlignment="Top"
+                Width="140" />
+        <PasswordBox HorizontalAlignment="Left"
+                     x:Name="passwordBox"
+                     Margin="120,243,0,0"
+                     VerticalAlignment="Top"
+                     Width="195"
+                     Height="25" />
+        <Label Content="CREATE CLINIC DOCTOR:"
+               HorizontalAlignment="Left"
+               Margin="30,39,0,0"
+               VerticalAlignment="Top"
+               Width="265"
+               FontStyle="Italic" />
+        <Label Content="Account:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,358,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <TextBox x:Name="txtCardNumber"
+                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,360,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195">
+            <TextBox.Text>
+                <Binding Path="newDoctor.account"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidAccount />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Label Content="Department:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,398,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <TextBox x:Name="txtExpiryDate"
+                 Text="{Binding newDoctor.department, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="120,400,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="195" />
+        <Label Content="Shift:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="30,440,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <ComboBox HorizontalAlignment="Left"
+                  x:Name="cmbMarital" 
+                  IsEditable="True"
+                  ItemsSource="{Binding shiftList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding selectedShift, UpdateSourceTrigger=PropertyChanged}"
+                  Height="22"
+                  Margin="120,445,0,0"
+                  VerticalAlignment="Top"
+                  Width="195" />
+        <Label Content="Manager:"
+               HorizontalAlignment="Left"
+               Height="30"
+               Margin="30,482,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <ComboBox HorizontalAlignment="Left"
+                  x:Name="cmbMarital_Copy"
+                  DisplayMemberPath="fullname"
+                  IsEditable="True"
+                  ItemsSource="{Binding allManagers, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding selectedManager, UpdateSourceTrigger=PropertyChanged}"
+                  Height="22"
+                  Margin="120,482,0,0"
+                  VerticalAlignment="Top"
+                  Width="195" />
+        <Label Content="Reception:"
+               HorizontalAlignment="Left"
+               Height="30"
+               Margin="30,517,0,0"
+               VerticalAlignment="Top"
+               Width="110"
+               RenderTransformOrigin="1.944,-0.8" />
+        <RadioButton Content="Yes"
+                     x:Name="yes_Copy"
+                     GroupName="Reception"
+                     IsChecked="{Binding newDoctor.admissionOfPatients, Converter={StaticResource boolConverterKey}}"
+                     HorizontalAlignment="Left"
+                     Margin="140,523,0,0"
+                     VerticalAlignment="Top" />
+        <RadioButton Content="No"
+                     x:Name="no_Copy"
+                     GroupName="Reception"
+                     IsChecked="{Binding newDoctor.admissionOfPatients, Converter={StaticResource inverseBoolRadioConverter}}"
+                     HorizontalAlignment="Left"
+                     Margin="225,523,0,0"
+                     VerticalAlignment="Top" />
+    </Grid>
+</Window>
