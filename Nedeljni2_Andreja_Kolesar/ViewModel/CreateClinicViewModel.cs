@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -78,6 +79,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 Service.Service.AddAdministrator(admininstrator);
                 if (institute != null)
                 {
+                    string content = "Clinic has been created";
+                    LogIntoFile.getInstance().PrintActionIntoFile(content);
                     Administrator a = new Administrator();
                     MessageBox.Show("Clinic has been created.");
                     clinic.Close();

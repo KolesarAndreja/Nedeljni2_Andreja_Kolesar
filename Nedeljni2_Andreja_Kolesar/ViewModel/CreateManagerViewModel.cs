@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -55,6 +56,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         }
 
         public bool isUpdated { get; set; }
+        public bool isEditingWindow = false;
 
         #endregion
 
@@ -71,6 +73,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             register = open;
             newUser = user;
             newManager = man;
+            isEditingWindow = true;
 
         }
         #endregion
@@ -127,6 +130,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string message = null;
                 currentPassword = (obj as PasswordBox).Password;
                 if (Model.Person.ValidPassword(currentPassword))
                 {
@@ -136,15 +140,23 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     tblClinicManager m = Service.Service.AddManager(newManager);
                     if (u != null && m != null)
                     {
-                        MessageBox.Show("Manager has been registered.");
+                        if (isEditingWindow)
+                            message = "Manager with id:" + m.managerId +"  has been upated";
+                        else
+                        {
+                            message = "Manager with id:" + m.managerId + "  has been registered.";
+                        }
+                        MessageBox.Show(message);
                         isUpdated = true;
                         register.Close();
                     }
                 }
                 else
                 {
+                    message = "Manager registration failed due to weak password";
                     MessageBox.Show("Pasword must contain at least 6charc including one upper, one lower, one numeric and one special char. Try again");
                 }
+                LogIntoFile.getInstance().PrintActionIntoFile(message);
             }
             
             catch (Exception ex)
@@ -155,18 +167,26 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute(object obj)
         {
-            if (!String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth != null && !String.IsNullOrEmpty(newUser.ICnumber))
+            if (!isEditingWindow)
             {
-                currentPassword = (obj as PasswordBox).Password;
-                if (!String.IsNullOrEmpty(currentPassword))
-                    return true;
+                if (!String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth != null && !String.IsNullOrEmpty(newUser.ICnumber))
+                {
+                    currentPassword = (obj as PasswordBox).Password;
+                    if (!String.IsNullOrEmpty(currentPassword))
+                        return true;
+                    else
+                        return false;
+                }
                 else
+                {
                     return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
+   
         }
         #endregion
     }

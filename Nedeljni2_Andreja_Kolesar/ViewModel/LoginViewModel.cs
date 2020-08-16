@@ -3,6 +3,7 @@ using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,6 +35,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         }
         #endregion
 
+
         #region Commands
         private ICommand _loginBtn;
         public ICommand loginBtn
@@ -53,18 +55,22 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
             try
             {
+                string content = null;
                 person.password = (obj as PasswordBox).Password;
                 tblUser user = Service.Service.GetUser(person.username, person.password);
                 if (user == null)
                 {
                     if (person.isMaster())
                     {
+                        content = "Master has logged in";
                         Master master = new Master();
                         login.Close();
                         master.Show();
+
                     }
                     else
                     {
+                        content = "Unsuccessful login with username " + person.username + " and password " + person.password;
                         MessageBox.Show("Invalid username or password.Try again");
                     }
                 }
@@ -72,6 +78,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 {
                     if (Service.Service.isPatient(user) != null)
                     {
+                        content = "Patient with username " + person.username + " has logged in."; 
                         tblClinicPatient patient = Service.Service.isPatient(user);
                         Patient p = new Patient();
                         login.Close();
@@ -79,6 +86,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     }
                     else if (Service.Service.isDoctor(user) != null)
                     {
+                        content = "Doctor with username " + person.username + " has logged in.";
                         tblClinicDoctor doctor = Service.Service.isDoctor(user);
                         Doctor d = new Doctor();
                         login.Close();
@@ -86,6 +94,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     }
                     else if (Service.Service.isManager(user) != null)
                     {
+                        content = "Manager with username " + person.username + " has logged in.";
                         tblClinicManager manager = Service.Service.isManager(user);
                         Manager m = new Manager();
                         login.Close();
@@ -95,6 +104,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     {
                         tblClinicAdministrator admin = Service.Service.isAdministrator(user);
                         Administrator a = new Administrator();
+                        content = "Administrator has logged in.";
                         if (Service.Service.InstituteExist())
                         {
                             login.Close();
@@ -108,6 +118,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                         }
                     }
                 }
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
             }
             catch (Exception ex)
             {

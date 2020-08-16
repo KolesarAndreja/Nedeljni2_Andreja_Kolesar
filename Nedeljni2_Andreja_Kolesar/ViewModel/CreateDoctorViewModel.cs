@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -116,6 +117,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         }
 
         public bool isUpdated { get; set; }
+        public bool isEditingWindow = false;
 
         #endregion
 
@@ -134,8 +136,9 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
             newUser = u;
             newDoctor = d;
             allManagers = Service.Service.GetManagersList();
+            isEditingWindow = true;
 
-        }
+    }
         #endregion
 
         #region logout
@@ -190,6 +193,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string content = null;
                 currentPassword = (obj as PasswordBox).Password;
                 if (Model.Person.ValidPassword(currentPassword))
                 {
@@ -204,15 +208,26 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     tblClinicDoctor doc = Service.Service.AddDoctor(newDoctor);
                     if (u != null && doc != null)
                     {
-                        MessageBox.Show("Doctor has been registered.");
+                        if (isEditingWindow)
+                        {
+                            content = "Doctor with id: " + doc.doctorId +" has been updated";
+                        }
+                        else
+                        {
+                            content = "Doctor with id: " + doc.doctorId + "has been registered";
+                        }
+                        MessageBox.Show(content);
                         isUpdated = true;
                         register.Close();
                     }
                 }
                 else
                 {
+                    content = "Doctor registration failed due to weak password";
                     MessageBox.Show("Pasword must contain at least 6charc including one upper, one lower, one numeric and one special char. Try again");
                 }
+
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
             }
             catch (Exception ex)
             {
@@ -222,18 +237,26 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute(object obj)
         {
-            if (!String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth != null && !String.IsNullOrEmpty(newUser.ICnumber) && !String.IsNullOrEmpty(newDoctor.account) && !String.IsNullOrEmpty(newDoctor.department) && !String.IsNullOrEmpty(selectedShift))
+            if (!isEditingWindow)
             {
-                currentPassword = (obj as PasswordBox).Password;
-                if (!String.IsNullOrEmpty(currentPassword))
-                    return true;
+                if (!String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.fullname) && !String.IsNullOrEmpty(newUser.citizenship) && !String.IsNullOrEmpty(newUser.gender) && newUser.dateOfBirth != null && !String.IsNullOrEmpty(newUser.ICnumber) && !String.IsNullOrEmpty(newDoctor.account) && !String.IsNullOrEmpty(newDoctor.department) && !String.IsNullOrEmpty(selectedShift))
+                {
+                    currentPassword = (obj as PasswordBox).Password;
+                    if (!String.IsNullOrEmpty(currentPassword))
+                        return true;
+                    else
+                        return false;
+                }
                 else
+                {
                     return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
+    
         }
         #endregion
     }

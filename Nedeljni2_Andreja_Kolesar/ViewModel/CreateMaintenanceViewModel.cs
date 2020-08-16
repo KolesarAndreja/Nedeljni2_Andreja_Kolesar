@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -72,25 +73,30 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 //just for adding new items
                 if (!isEditingWindow)
                 {
-                    message = "Clinic editClinic has been added.";
+                    message = "Clinic Maintenance has been added.";
                     //if there is already 3 services, remove first one, then continue with adding
                     if (queue != null && queue.Count == 3)
                     {
+                        
                         tblClinicMaintenance deleteThis = queue.Dequeue();
                         Service.Service.DeleteMaintenance(deleteThis);
+                        string content = "Clinic Maintenance id: " + deleteThis.maintenanceId + " has been deleted";
+                        LogIntoFile.getInstance().PrintActionIntoFile(content);
                     }
                 }
                 else
                 {
-                    message = "Clinic editClinic has been updated.";
+                    message = "Clinic Maintenance has been updated.";
                 }
                 tblClinicMaintenance maintenance = Service.Service.AddMaintenance(newMaintenance);
                 if (maintenance != null)
                 {
                     MessageBox.Show(message);
                     isUpdated = true;
+                    LogIntoFile.getInstance().PrintActionIntoFile(message + "Id: " + maintenance.maintenanceId );
                     main.Close();
                 }
+                
             }
             catch (Exception ex)
             {

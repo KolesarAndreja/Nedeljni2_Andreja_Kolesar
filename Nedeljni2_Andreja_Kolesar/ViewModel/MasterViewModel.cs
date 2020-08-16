@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -84,6 +85,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string content = "Master has logged out.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Login login = new Login();
                 master.Close();
                 login.Show();
@@ -119,6 +122,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string content = null;
                 currentPassword = (obj as PasswordBox).Password;
                 if (Model.Person.ValidPassword(currentPassword))
                 {
@@ -128,6 +132,7 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     tblClinicAdministrator a = Service.Service.AddAdministrator(newAdministrator);
                     if (u != null && a != null)
                     {
+                        content = "Administrator with username " + newUser.username + " has been registered.";
                         Login login = new Login();
                         MessageBox.Show("Administrator has been registered.");
                         master.Close();
@@ -137,9 +142,11 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                 }
                 else
                 {
+                    content = "Administrator registration failed due to weak password";
                     MessageBox.Show("Pasword must contain at least 6charc including one upper, one lower, one numeric and one special char. Try again");
                 }
-              
+
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
 
             }
             catch (Exception ex)

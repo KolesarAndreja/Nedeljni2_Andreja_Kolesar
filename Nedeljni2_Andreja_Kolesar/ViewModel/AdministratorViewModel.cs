@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -502,6 +503,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string content = "Administrator has logged out.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Login login = new Login();
                 administrator.Close();
                 login.ShowDialog();
@@ -540,6 +543,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
+                string content = "Clinic Maintenance with id: " + maintenance.maintenanceId + "has been deleted.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Service.Service.DeleteMaintenance(maintenance);
                 maintenanceList = Service.Service.GetMaintenanceList();
             }
@@ -570,6 +575,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
+                string content = "Clinic Patient with id: " + patient.patientId + "has been deleted.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Service.Service.DeletePatient(Service.Service.PatientById(patient.patientId));
                 patientList = Service.Service.PatientsList();
             }
@@ -601,6 +608,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
+                string content = "Clinic Manager with id: " + manager.managerId + "has been deleted.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Service.Service.DeleteManager(Service.Service.ManagerById(manager.managerId));
                 managerList = Service.Service.GetManagersList();
                 doctorList = Service.Service.DoctorList();
@@ -632,6 +641,8 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
 
             if (result == MessageBoxResult.Yes)
             {
+                string content = "Clinic Doctor with id: " + doctor.doctorId + "has been deleted.";
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
                 Service.Service.DeleteDoctor(Service.Service.DoctorById(doctor.doctorId));
                 doctorList = Service.Service.DoctorList();
                 patientList = Service.Service.PatientsList();

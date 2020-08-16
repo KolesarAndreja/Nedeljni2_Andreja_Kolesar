@@ -67,6 +67,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Converter\BoolRadioConverter.cs" />
     <Compile Include="Converter\StringConverter.cs" />
+    <Compile Include="Model\LogIntoFile.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Service\Model1.Context.cs">
       <AutoGen>True</AutoGen>

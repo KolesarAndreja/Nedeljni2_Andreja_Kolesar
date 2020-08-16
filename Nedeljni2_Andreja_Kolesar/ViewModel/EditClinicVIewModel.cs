@@ -1,4 +1,5 @@
 ﻿using Nedeljni2_Andreja_Kolesar.Command;
+using Nedeljni2_Andreja_Kolesar.Model;
 using Nedeljni2_Andreja_Kolesar.Service;
 using Nedeljni2_Andreja_Kolesar.View;
 using System;
@@ -48,10 +49,12 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
         {
             try
             {
+                string content = null;
                 tblInstitute previous = Service.Service.GetInstitute();
                 if(previous.numberOfAccessPointsForInvalids>editClinic.numberOfAccessPointsForInvalids || previous.numberOfAmbulanceAccessPoints > editClinic.numberOfAmbulanceAccessPoints)
                 {
                     MessageBox.Show("Access points can only be greater than previous ones.");
+                    content = "Unsuccessful update of clinic due to lower values of access pointes then previouse ones.";
                 }
                 else
                 { 
@@ -59,11 +62,14 @@ namespace Nedeljni2_Andreja_Kolesar.ViewModel
                     tblInstitute institute = Service.Service.AddInstitute(editClinic);
                     if (institute != null)
                     {
+                        content = "Clinic has been edited.";
                         MessageBox.Show("Clinic has been edited.");
                         clinic.Close();
                     }
 
                 }
+                
+                LogIntoFile.getInstance().PrintActionIntoFile(content);
             }
             catch (Exception ex)
             {
